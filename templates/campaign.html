@@ -3,6 +3,7 @@
     <!-- Page Campaign Start -->
     <div class="page-campaign">
         <div class="container">
+            {% if cellgroups %}
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <!-- Campaign Item Start -->
@@ -115,129 +116,6 @@
                     <!-- Campaign Item End -->
                 </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <!-- Campaign Item Start -->
-                    <div class="campaign-item wow fadeInUp" data-wow-delay="0.75s">
-                        <!-- Campaign Image Start -->
-                        <div class="campaign-image">
-                            <figure>
-                                <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="/static/images/campaign-img-4.jpg" alt="">
-                                </a>
-                            </figure>
-                        </div>
-                        <!-- Campaign Image End -->
-
-                        <!-- Campaign Body Start -->
-                        <div class="campaign-body">
-                            <!-- Campaign Title Start -->
-                            <div class="campaign-content">
-                                <h2>Roysambu Cell group</h2>
-                                <p>Understand the significance of regular tithes and offerings in sustaining.</p>
-                            </div>
-                            <!-- Campaign Title End -->
-
-                            <!-- Campaign List Start -->
-                            <div class="campaign-btn">
-                                <a href="#" class="read-more-btn">Join team</a>
-                            </div>
-                            <!-- Campaign List End -->
-
-                            <!-- Skills Progress Bar Start -->
-                            <div class="skills-progress-bar">
-                                <!-- Skill Item Start -->
-                                Join our whatsapp group for communications
-                                <!-- Skill Item End -->
-                            </div>
-                            <!-- Skills Progress Bar End -->
-                        </div>
-                        <!-- Campaign Body End -->                        
-                    </div>
-                    <!-- Campaign Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Campaign Item Start -->
-                    <div class="campaign-item wow fadeInUp" data-wow-delay="1s">
-                        <!-- Campaign Image Start -->
-                        <div class="campaign-image">
-                            <figure>
-                                <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="/static/images/campaign-img-5.jpg" alt="">
-                                </a>
-                            </figure>
-                        </div>
-                        <!-- Campaign Image End -->
-
-                        <!-- Campaign Body Start -->
-                        <div class="campaign-body">
-                            <!-- Campaign Title Start -->
-                            <div class="campaign-content">
-                                <h2>Kasarani Cell Group</h2>
-                                <p>Explore planned giving options to leave a lasting legacy for our church.</p>
-                            </div>
-                            <!-- Campaign Title End -->
-
-                            <!-- Campaign List Start -->
-                            <div class="campaign-btn">
-                                <a href="#" class="read-more-btn">Join team</a>
-                            </div>
-                            <!-- Campaign List End -->
-
-                            <!-- Skills Progress Bar Start -->
-                            <div class="skills-progress-bar">
-                                <!-- Skill Item Start -->
-                                Join our whatsapp group for communications
-                                <!-- Skill Item End -->
-                            </div>
-                            <!-- Skills Progress Bar End -->
-                        </div>
-                        <!-- Campaign Body End -->                        
-                    </div>
-                    <!-- Campaign Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Campaign Item Start -->
-                    <div class="campaign-item wow fadeInUp" data-wow-delay="1.25s">
-                        <!-- Campaign Image Start -->
-                        <div class="campaign-image">
-                            <figure>
-                                <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="/static/images/campaign-img-6.jpg" alt="">
-                                </a>
-                            </figure>
-                        </div>
-                        <!-- Campaign Image End -->
-
-                        <!-- Campaign Body Start -->
-                        <div class="campaign-body">
-                            <!-- Campaign Title Start -->
-                            <div class="campaign-content">
-                                <h2>Kilimani Cell group</h2>
-                                <p>Join us in community fundraisers to support various church initiatives.</p>
-                            </div>
-                            <!-- Campaign Title End -->
-
-                            <!-- Campaign List Start -->
-                            <div class="campaign-btn">
-                                <a href="#" class="read-more-btn">Join team</a>
-                            </div>
-                            <!-- Campaign List End -->
-
-                            <!-- Skills Progress Bar Start -->
-                            <div class="skills-progress-bar">
-                                <!-- Skill Item Start -->
-                                Join our whatsapp group for communications
-                                <!-- Skill Item End -->
-                            </div>
-                            <!-- Skills Progress Bar End -->
-                        </div>
-                        <!-- Campaign Body End -->                        
-                    </div>
-                    <!-- Campaign Item End -->
-                </div>
-
                 <div class="col-lg-12">
                     <!-- Page Pagination Start -->
                     <div class="page-pagination wow fadeInUp" data-wow-delay="0.5s">
@@ -252,6 +130,9 @@
                     <!-- Page Pagination End -->
                 </div>
             </div>
+            {% else %}
+                <p class="text-center">No Cell Group Found</p>
+            {% endif %}
         </div>
     </div>
     <!-- Page Campaign End -->

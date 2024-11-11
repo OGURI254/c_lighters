@@ -75,7 +75,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
     "site_title": "CityLighters Admin",
     "site_header": "City Lighters",
-    "search_model": ["auth.User", "auth.Group"],
+    # "search_model": ["auth.User", "auth.Group"],
     "copyright": "City Lighters",
     "topmenu_links": [{"app": "api"}]
 }

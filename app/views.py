@@ -16,12 +16,12 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
-def about(request):
-    return render(request, 'about.html')
-
 # About Us Page
 def about(request):
-    return render(request, 'about.html')
+    context = {
+        'title': 'About Us'
+    }
+    return render(request, 'about.html', context)
 
 # Services Page
 def services(request):
@@ -31,56 +31,72 @@ def services(request):
     return render(request, 'service.html', context)
 
 # Service Details Page
-def service_details(request):
+def service_details(request, slug):
     return render(request, 'service-single.html')
 
 # Blog Page
 def blog(request):
-    return render(request, 'blog.html')
+    context = {
+        'title': 'Blogs',
+    }
+    return render(request, 'blog.html', context)
 
 # Blog Details Page
-def blog_details(request):
+def blog_details(request, slug):
     return render(request, 'blog-single.html')
 
 # Sermons Page
 def sermons(request):
-    return render(request, 'sermons.html')
+    context = {
+        'title': 'Sermons',
+    }
+    return render(request, 'sermons.html', context)
 
 # Sermon Details Page
-def sermon_details(request):
+def sermon_details(request, slug):
     return render(request, 'sermons-single.html')
 
-# Campaign (Cell Groups) Page
-def campaign(request):
-    return render(request, 'campaign.html')
-
-# Campaign Details Page
-def campaign_details(request):
-    return render(request, 'campaign-single.html')
+def cell_groups(request):
+    context = {
+        'title': 'Cell Groups',
+    }
+    return render(request, 'campaign.html', context)
 
 # Ministries Page
 def ministries(request):
-    return render(request, 'ministries.html')
+    context = {
+        'title': 'Ministries'
+    }
+    return render(request, 'ministries.html', context)
 
 # Ministry Details Page
-def ministry_details(request):
+def ministry_details(request, slug):
     return render(request, 'ministry-single.html')
 
 # Pastor Page
 def pastor(request):
-    return render(request, 'pastor.html')
+    context = {
+        'title': 'Pastors',
+    }
+    return render(request, 'pastor.html', context)
 
 # Gallery Page
 def gallery(request):
-    return render(request, 'gallery.html')
+    context = {
+        'title': 'Gallery',
+    }
+    return render(request, 'gallery.html', context)
 
 # Contact Us Page
 def contact(request):
-    return render(request, 'contact.html')
+    context = {
+        'title': 'Contact Us',
+    }
+    return render(request, 'contact.html', context)
 
-# Custom 404 Page
-def custom_404(request):
-    return render(request, '404.html', status=404)
 # scanner
 def scanner(request):
-    return render(request, 'scanner.html')
+    context = {
+        'title': 'Scanners',
+    }
+    return render(request, 'scanner.html', context)
