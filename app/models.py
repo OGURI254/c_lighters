@@ -12,6 +12,7 @@ class Category(models.Model):
     
     class Meta:
         ordering = ('is_active', 'created_at')
+        verbose_name_plural = 'Categories'
 
 class Service(models.Model):
     title =  models.CharField(max_length=220, unique=True)
@@ -50,6 +51,7 @@ class Ministry(models.Model):
     
     class Meta:
         ordering = ('is_active', 'created_at')
+        verbose_name_plural = 'Ministries'
 
 class MinistryImage(models.Model):
     ministry = models.ForeignKey(Ministry, on_delete=models.CASCADE, related_name='ministry')
@@ -115,15 +117,14 @@ class Pastor(models.Model):
     ig_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
     linkedin_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
     x_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
     
     class Meta:
-        ordering = ('is_active', 'created_at')
+        ordering = ('position', 'created_at')
 
 class Gallery(models.Model):
     img = models.ImageField(upload_to="gallery/")
@@ -136,6 +137,7 @@ class Gallery(models.Model):
     
     class Meta:
         ordering = ('is_active', 'created_at')
+        verbose_name_plural = 'Galleries'
 
 class Contact(models.Model):
     first_name =  models.CharField(max_length=60)

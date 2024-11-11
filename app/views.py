@@ -1,7 +1,7 @@
-# app/views.py
 import requests
 
 from django.shortcuts import render
+from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact
 
 def home(request):
     api_url = 'http://localhost:8000/events/'  
