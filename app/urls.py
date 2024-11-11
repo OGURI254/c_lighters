@@ -5,7 +5,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.home, name='home'),  # This makes `index.html` the homepage
+    path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('services/', views.services, name='services'),
     path('service-single/', views.service_details, name='service_details'),

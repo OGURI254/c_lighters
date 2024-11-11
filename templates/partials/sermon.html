@@ -1,0 +1,158 @@
+{% if sermons %}
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <!-- Sermons Item Start -->
+            <div class="sermons-item wow fadeInUp">
+                <!-- Sermons Image Start -->
+                <div class="sermons-image">
+                    <figure>
+                        <a href="#" class="image-anime" data-cursor-text="View">
+                            <img src="/static/images/sermons-img-1.jpg" alt="">
+                        </a>
+                    </figure>
+                    <!-- Sermons Meta Start -->
+                    <div class="sermons-meta">
+                        <h3>03</h3>
+                        <p>aug</p>
+                    </div>
+                    <!-- Sermons Meta End -->
+
+                    <div class="sermons-audio-icon">
+                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
+                    </div>
+                </div>
+                <!-- Sermons Image End -->
+
+                <!-- Sermons Body Start -->
+                <div class="sermons-body">
+                    <!-- Sermons Title Start -->
+                    <div class="sermons-title">
+                        <h2>Start a New Way of Living</h2>
+                    </div>
+                    <!-- Sermons Title End -->
+
+                    <!-- Sermons List Start -->
+                    <div class="sermons-list">
+                        <ul>
+                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
+                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
+                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
+                        </ul>
+                    </div>
+                    <!-- Sermons List End -->
+                </div>
+                <!-- Sermons Body End -->
+            </div>
+            <!-- Sermons Item End -->
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <!-- Sermons Item Start -->
+            <div class="sermons-item wow fadeInUp" data-wow-delay="0.25s">
+                <!-- Sermons Image Start -->
+                <div class="sermons-image">
+                    <figure>
+                        <a href="#" class="image-anime" data-cursor-text="View">
+                            <img src="/static/images/sermons-img-2.jpg" alt="">
+                        </a>
+                    </figure>
+                    <!-- Sermons Meta Start -->
+                    <div class="sermons-meta">
+                        <h3>03</h3>
+                        <p>aug</p>
+                    </div>
+                    <!-- Sermons Meta End -->
+
+                    <div class="sermons-audio-icon">
+                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
+                    </div>
+                </div>
+                <!-- Sermons Image End -->
+
+                <!-- Sermons Body Start -->
+                <div class="sermons-body">
+                    <!-- Sermons Title Start -->
+                    <div class="sermons-title">
+                        <h2>overcoming life's challenges</h2>
+                    </div>
+                    <!-- Sermons Title End -->
+
+                    <!-- Sermons List Start -->
+                    <div class="sermons-list">
+                        <ul>
+                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
+                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
+                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
+                        </ul>
+                    </div>
+                    <!-- Sermons List End -->
+                </div>
+                <!-- Sermons Body End -->
+            </div>
+            <!-- Sermons Item End -->
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <!-- Sermons Item Start -->
+            <div class="sermons-item wow fadeInUp" data-wow-delay="0.5s">
+                <!-- Sermons Image Start -->
+                <div class="sermons-image">
+                    <figure>
+                        <a href="#" class="image-anime" data-cursor-text="View">
+                            <img src="/static/images/sermons-img-3.jpg" alt="">
+                        </a>
+                    </figure>
+                    <!-- Sermons Meta Start -->
+                    <div class="sermons-meta">
+                        <h3>03</h3>
+                        <p>aug</p>
+                    </div>
+                    <!-- Sermons Meta End -->
+
+                    <div class="sermons-audio-icon">
+                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
+                    </div>
+                </div>
+                <!-- Sermons Image End -->
+
+                <!-- Sermons Body Start -->
+                <div class="sermons-body">
+                    <!-- Sermons Title Start -->
+                    <div class="sermons-title">
+                        <h2>hope in times of trouble</h2>
+                    </div>
+                    <!-- Sermons Title End -->
+
+                    <!-- Sermons List Start -->
+                    <div class="sermons-list">
+                        <ul>
+                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
+                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
+                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
+                        </ul>
+                    </div>
+                    <!-- Sermons List End -->
+                </div>
+                <!-- Sermons Body End -->
+            </div>
+            <!-- Sermons Item End -->
+        </div>
+        {% if not title == "Homepage" %}
+            <div class="col-lg-12">
+                <!-- Page Pagination Start -->
+                <div class="page-pagination wow fadeInUp" data-wow-delay="0.5s">
+                    <ul class="pagination">
+                        <li><a href="#"><i class="fa-solid fa-arrow-left-long"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                    </ul>
+                </div>
+                <!-- Page Pagination End -->
+            </div>
+        {% endif %}
+    </div>
+{% else %}
+    <p class="text-center">No Sermon Found</p>
+{% endif %}

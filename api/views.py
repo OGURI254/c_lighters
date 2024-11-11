@@ -41,7 +41,7 @@ class EventRegistrationViewSet(viewsets.ModelViewSet):
             qr.save(qr_buffer, format="PNG")
             qr_buffer.seek(0)
             qr_base64 = base64.b64encode(qr_buffer.getvalue()).decode("utf-8")
-            logo_url = request.build_absolute_uri(settings.STATIC_URL + "images/logo.png")
+            logo_url = request.build_absolute_uri(settings.STATIC_URL + "/static/images/logo.png")
             context = {
                 "event_name": registration.event.name,
                 "event_date": registration.event.date,

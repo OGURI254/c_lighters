@@ -4,15 +4,17 @@ import requests
 from django.shortcuts import render
 
 def home(request):
-    # Assuming your API is hosted locally, adjust the URL if different
     api_url = 'http://localhost:8000/events/'  
     try:
         response = requests.get(api_url)
         events = response.json() if response.status_code == 200 else []
     except requests.exceptions.RequestException:
         events = []
-
-    return render(request, 'index.html', {'events': events, 'title': 'Homepage'})
+    context = {
+        'title': 'Homepage',
+        'events': events 
+    }
+    return render(request, 'index.html', context)
 
 def about(request):
     return render(request, 'about.html')
@@ -23,7 +25,10 @@ def about(request):
 
 # Services Page
 def services(request):
-    return render(request, 'service.html')
+    context = {
+        'title': 'Services'
+    }
+    return render(request, 'service.html', context)
 
 # Service Details Page
 def service_details(request):
