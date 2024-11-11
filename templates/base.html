@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+    {% endblock %}
+    <meta name="author" content="Jeff Odhiambo">
+    <title>{{ title|title|default:"City Lighters Church" }} </title>
+    {% include 'partials/css.html' %}
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div class="preloader">
+        <div class="loading-container">
+            <div class="loading"></div>
+            <div id="loading-icon"><img src="/static/images/loader.svg" alt=""></div>
+        </div>
+    </div>
+    <!-- Preloader End -->
+    <!-- Header Start -->
+    {% include 'partials/top-nav.html' %}
+    <!-- Header End -->
+    {% if title == "Homepage" %}
+        {% include 'partials/hero-section.html' %}
+    {% else %}
+        {% include 'partials/breadcrum.html' %}
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+    <!-- Footer Start -->
+    {% include 'partials/footer.html' %}
+    <!-- Footer End -->
+    {% include 'partials/js.html' %}
+</body>
+</html>

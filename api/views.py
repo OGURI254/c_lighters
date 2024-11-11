@@ -16,7 +16,6 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [AllowAny]
-
     def get_queryset(self):
         return Event.objects.filter(is_active=True)
 
@@ -24,35 +23,25 @@ class EventRegistrationViewSet(viewsets.ModelViewSet):
     queryset = EventRegistration.objects.all()
     serializer_class = EventRegistrationSerializer
     permission_classes = [AllowAny]
-
     def create(self, request, *args, **kwargs):
         event_id = request.data.get('event')
         email = request.data.get('email')
-
-        # Check if the user is already registered for the event
         if EventRegistration.objects.filter(event_id=event_id, email=email).exists():
             return Response(
                 {"message": "You have already registered for this event."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             registration = serializer.save()
             ticket_number = f"TICKET-{registration.id:06d}"
-
-            # Generate QR code as base64 for embedding in HTML
             qr_data = f"registration_id:{registration.id}"
             qr = qrcode.make(qr_data)
             qr_buffer = BytesIO()
             qr.save(qr_buffer, format="PNG")
             qr_buffer.seek(0)
             qr_base64 = base64.b64encode(qr_buffer.getvalue()).decode("utf-8")
-
-            # Use build_absolute_uri to get the full URL for the logo
             logo_url = request.build_absolute_uri(settings.STATIC_URL + "images/logo.png")
-
-            # Prepare data for rendering HTML template
             context = {
                 "event_name": registration.event.name,
                 "event_date": registration.event.date,
@@ -60,16 +49,12 @@ class EventRegistrationViewSet(viewsets.ModelViewSet):
                 "name": registration.name,
                 "email": registration.email,
                 "qr_code_base64": qr_base64,
-                "logo_url": logo_url,  # Update with the correct logo path
+                "logo_url": logo_url,
             }
             html_string = render_to_string("ticket.html", context)
-
-            # Convert HTML to PDF
             pdf_buffer = BytesIO()
             HTML(string=html_string).write_pdf(pdf_buffer)
             pdf_buffer.seek(0)
-
-            # Send email with ticket PDF attachment
             email_message = EmailMessage(
                 subject="Event Registration Confirmation",
                 body="You have successfully booked a slot. Check your email to download your ticket.",
@@ -78,7 +63,6 @@ class EventRegistrationViewSet(viewsets.ModelViewSet):
             )
             email_message.attach(f"ticket_{registration.id}.pdf", pdf_buffer.getvalue(), 'application/pdf')
             email_message.send()
-
             return Response(
                 {
                     "message": "You have successfully booked a slot. Check your email to download your ticket.",
@@ -93,27 +77,21 @@ class EventRegistrationViewSet(viewsets.ModelViewSet):
         try:
             registration_id = request.data.get("registration_id")
             input_password = request.data.get("password")
-
             registration = EventRegistration.objects.get(pk=registration_id)
-
-            # Retrieve current admin validation password
             admin_settings = AdminSettings.objects.first()
             if not admin_settings:
-                admin_settings = AdminSettings.objects.create()  # Default creation if not existing
-
+                admin_settings = AdminSettings.objects.create()
             if input_password == admin_settings.validation_password:
                 registration.validated = True
                 registration.save()
                 return Response({"message": "Ticket validated successfully."}, status=status.HTTP_200_OK)
             else:
                 return Response({"message": "Invalid password."}, status=status.HTTP_403_FORBIDDEN)
-
         except EventRegistration.DoesNotExist:
             return Response({"message": "Registration not found."}, status=status.HTTP_404_NOT_FOUND)
 
 class AdminSettingsViewSet(viewsets.ViewSet):
     permission_classes = [IsAdminUser]
-
     @action(detail=False, methods=['post'], permission_classes=[IsAdminUser])
     def set_validation_password(self, request):
         new_password = request.data.get("password")

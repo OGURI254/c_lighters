@@ -1,178 +1,23 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-
-<head>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="Awaiken">
-    <!-- Page Title -->
-    <title>City Lighters Church </title>
-    <!-- Favicon Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{%static 'static/images/favicon.png' %}">
-    <!-- Google Fonts Css-->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        rel="stylesheet">
-    <!-- Bootstrap Css -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <!-- SlickNav Css -->
-    <link href="static/css/slicknav.min.css" rel="stylesheet">
-    <!-- Swiper Css -->
-    <link rel="stylesheet" href="static/css/swiper-bundle.min.css">
-    <!-- Font Awesome Icon Css-->
-    <link href="static/css/all.css" rel="stylesheet" media="screen">
-    <!-- Animated Css -->
-    <link href="static/css/animate.css" rel="stylesheet">
-    <!-- Magnific Popup Core Css File -->
-    <link rel="stylesheet" href="static/css/magnific-popup.css">
-    <!-- Mouse Cursor Css File -->
-    <link rel="stylesheet" href="static/css/mousecursor.css">
-    <!-- Audio Css File -->
-    <link rel="stylesheet" href="static/css/plyr.css">
-    <!-- Main Custom Css -->
-    <link href="static/css/custom.css" rel="stylesheet" media="screen">
-    <!-- event css -->
-    <link rel="stylesheet" href="static/css/event.css">
-
-</head>
-
-<body>
-
-    <!-- Preloader Start -->
-    <div class="preloader">
-        <div class="loading-container">
-            <div class="loading"></div>
-            <div id="loading-icon"><img src="static/images/loader.svg" alt=""></div>
-        </div>
-    </div>
-    <!-- Preloader End -->
-
-    <!-- Header Start -->
-    <header class="main-header">
-        <div class="header-sticky">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container">
-                    <!-- Logo Start -->
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img src="{% static 'images/logo.svg' %}" alt="Logo">
-                    </a>
-                    <!-- Logo End -->
-
-                    <!-- Main Menu Start -->
-                    <div class="collapse navbar-collapse main-menu">
-                        <div class="nav-menu-wrapper">
-                            <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
-                                <li class="nav-item submenu"><a class="nav-link" href="#">Pages</a>
-                                    <ul>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="{% url 'service_details' %}">Service Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'blog_details' %}">Blog
-                                                Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'sermons' %}">Sermons</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="{% url 'sermon_details' %}">Sermons Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'campaign' %}">Cell
-                                                Groups</a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="{% url 'campaign_details' %}">Campaign Details</a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="{% url 'ministries' %}">Ministries</a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="{% url 'ministry_details' %}">Ministries Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'pastor' %}">Pastor</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'custom_404' %}">404</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
-                                <li class="nav-item highlighted-menu"><a class="nav-link" href="#">Donate Now</a></li>
-                            </ul>
-                        </div>
-                        <!-- Let’s Start Button Start -->
-                        <div class="header-btn d-inline-flex">
-                            <a href="#" class="btn-default">Donate Now</a>
-                        </div>
-                        <!-- Let’s Start Button End -->
-                    </div>
-                    <!-- Main Menu End -->
-                    <div class="navbar-toggle"></div>
-                </div>
-            </nav>
-            <div class="responsive-menu"></div>
-        </div>
-    </header>
-
-    <!-- Header End -->
-
-    <!-- Hero Section Start -->
-    <div class="hero parallaxie">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <!-- Hero Content Start -->
-                    <div class="hero-content">
-                        <!-- Section Title Start -->
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">make a difference today</h3>
-                            <h1 class="text-anime-style-2" data-cursor="-opaque">Loving god, loving other and serving
-                                the world !</h1>
-                            <p class="wow fadeInUp" data-wow-delay="0.25s">Experience God's love and grace in a
-                                welcoming community where faith grows, hope thrives, and everyone is cherished.</p>
-                        </div>
-                        <!-- Section Title End -->
-
-                        <!-- Hero Content Body Start -->
-                        <div class="hero-content-body wow fadeInUp" data-wow-delay="0.5s">
-                            <a href="#" class="btn-default"><span>join in person</span></a>
-                            <a href="#" class="btn-default btn-highlighted"><span>donate now</span></a>
-                        </div>
-                        <!-- Hero Content Body End -->
-                    </div>
-                    <!-- Hero Content End -->
-                </div>
-            </div>
-        </div>
-        <div class="down-arrow">
-            <a href="#home-about"><i class="fa-solid fa-arrow-down-long"></i></a>
-        </div>
-    </div>
-    <!-- Hero Section End -->
-
+{% extends 'base.html' %}
+{% block content %}
     <!-- Our Scrolling Ticker Section Start -->
     <div class="our-scrolling-ticker">
         <!-- Scrolling Ticker Start -->
         <div class="scrolling-ticker-box">
             <div class="scrolling-content">
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
             </div>
 
             <div class="scrolling-content">
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
-                <span><img src="static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
+                <span><img src="/static/images/icon-sparkles.svg" alt="">You Are The Light Of The World.</span>
             </div>
         </div>
     </div>
@@ -187,13 +32,13 @@
                     <div class="about-image">
                         <div class="about-img-1">
                             <figure class="image-anime reveal">
-                                <img src="static/images/about-us-img-1.jpg" alt="">
+                                <img src="/static/images/about-us-img-1.jpg" alt="">
                             </figure>
                         </div>
 
                         <div class="about-img-2">
                             <figure class="image-anime reveal">
-                                <img src="static/images/about-us-img-2.jpg" alt="">
+                                <img src="/static/images/about-us-img-2.jpg" alt="">
                             </figure>
                         </div>
                     </div>
@@ -223,7 +68,7 @@
                             <!-- About List Item Start -->
                             <div class="about-list-item wow fadeInUp">
                                 <div class="icon-box">
-                                    <img src="static/images/icon-about-list-1.svg" alt="">
+                                    <img src="/static/images/icon-about-list-1.svg" alt="">
                                 </div>
                                 <div class="about-list-item-content">
                                     <h3>share god's love</h3>
@@ -234,7 +79,7 @@
                             <!-- About List Item Start -->
                             <div class="about-list-item wow fadeInUp" data-wow-delay="0.25s">
                                 <div class="icon-box">
-                                    <img src="static/images/icon-about-list-2.svg" alt="">
+                                    <img src="/static/images/icon-about-list-2.svg" alt="">
                                 </div>
                                 <div class="about-list-item-content">
                                     <h3>foster spiritual growth</h3>
@@ -245,7 +90,7 @@
                             <!-- About List Item Start -->
                             <div class="about-list-item wow fadeInUp" data-wow-delay="0.5s">
                                 <div class="icon-box">
-                                    <img src="static/images/icon-about-list-3.svg" alt="">
+                                    <img src="/static/images/icon-about-list-3.svg" alt="">
                                 </div>
                                 <div class="about-list-item-content">
                                     <h3>serve our community</h3>
@@ -256,7 +101,7 @@
                             <!-- About List Item Start -->
                             <div class="about-list-item wow fadeInUp" data-wow-delay="0.75s">
                                 <div class="icon-box">
-                                    <img src="static/images/icon-about-list-4.svg" alt="">
+                                    <img src="/static/images/icon-about-list-4.svg" alt="">
                                 </div>
                                 <div class="about-list-item-content">
                                     <h3>build strong relationships</h3>
@@ -302,7 +147,7 @@
                         <div class="highlighted-worship-image">
                             <figure>
                                 <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="static/images/join-worship-img-1.jpg" alt="">
+                                    <img src="/static/images/join-worship-img-1.jpg" alt="">
                                 </a>
                             </figure>
                         </div>
@@ -332,7 +177,7 @@
                             <div class="worship-image">
                                 <figure>
                                     <a href="#" class="image-anime" data-cursor-text="View">
-                                        <img src="static/images/join-worship-img-2.jpg" alt="">
+                                        <img src="/static/images/join-worship-img-2.jpg" alt="">
                                     </a>
                                 </figure>
                             </div>
@@ -363,7 +208,7 @@
                             <div class="worship-image">
                                 <figure>
                                     <a href="#" class="image-anime" data-cursor-text="View">
-                                        <img src="static/images/join-worship-img-3.jpg" alt="">
+                                        <img src="/static/images/join-worship-img-3.jpg" alt="">
                                     </a>
                                 </figure>
                             </div>
@@ -394,7 +239,7 @@
                             <div class="worship-image">
                                 <figure>
                                     <a href="#" class="image-anime" data-cursor-text="View">
-                                        <img src="static/images/join-worship-img-4.jpg" alt="">
+                                        <img src="/static/images/join-worship-img-4.jpg" alt="">
                                     </a>
                                 </figure>
                             </div>
@@ -548,14 +393,14 @@
                         <!-- Mission Image Start -->
                         <div class="mission-img">
                             <figure class="image-anime reveal">
-                                <img src="static/images/mission-image.jpg" alt="">
+                                <img src="/static/images/mission-image.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Mission Image End -->
 
                         <!-- Mission Life Circle Start -->
                         <div class="mission-life-circle">
-                            <img src="static/images/mission-life-circle-img.png" alt="">
+                            <img src="/static/images/mission-life-circle-img.png" alt="">
                         </div>
                         <!-- Mission Life Circle End -->
                     </div>
@@ -585,7 +430,7 @@
                     <div class="service-item wow fadeInUp">
                         <!-- Icon Box Start -->
                         <div class="icon-box">
-                            <img src="static/images/icon-service-1.svg" alt="">
+                            <img src="/static/images/icon-service-1.svg" alt="">
                         </div>
                         <!-- Icon Box End -->
 
@@ -615,7 +460,7 @@
                     <div class="service-item wow fadeInUp" data-wow-delay="0.25s">
                         <!-- Icon Box Start -->
                         <div class="icon-box">
-                            <img src="static/images/icon-service-2.svg" alt="">
+                            <img src="/static/images/icon-service-2.svg" alt="">
                         </div>
                         <!-- Icon Box End -->
 
@@ -645,7 +490,7 @@
                     <div class="service-item wow fadeInUp" data-wow-delay="0.5s">
                         <!-- Icon Box Start -->
                         <div class="icon-box">
-                            <img src="static/images/icon-service-3.svg" alt="">
+                            <img src="/static/images/icon-service-3.svg" alt="">
                         </div>
                         <!-- Icon Box End -->
 
@@ -675,7 +520,7 @@
                     <div class="service-item wow fadeInUp" data-wow-delay="0.75s">
                         <!-- Icon Box Start -->
                         <div class="icon-box">
-                            <img src="static/images/icon-service-4.svg" alt="">
+                            <img src="/static/images/icon-service-4.svg" alt="">
                         </div>
                         <!-- Icon Box End -->
 
@@ -709,19 +554,19 @@
         <div class="scrolling-ticker">
             <div class="scrolling-ticker-box">
                 <div class="scrolling-content">
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
                 </div>
 
                 <div class="scrolling-content">
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
-                    <span><img src="static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
+                    <span><img src="/static/images/icon-asterisk.svg" alt="">LIGHT OF THE WORLD</span>
                 </div>
             </div>
         </div>
@@ -748,7 +593,7 @@
                         <div class="ministries-image" data-cursor-text="View">
                             <a href="#">
                                 <figure>
-                                    <img src="static/images/ministries-img-1.jpg" alt="">
+                                    <img src="/static/images/ministries-img-1.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -776,7 +621,7 @@
                         <div class="ministries-image" data-cursor-text="View">
                             <a href="#">
                                 <figure>
-                                    <img src="static/images/ministries-img-2.jpg" alt="">
+                                    <img src="/static/images/ministries-img-2.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -804,7 +649,7 @@
                         <div class="ministries-image" data-cursor-text="View">
                             <a href="#">
                                 <figure>
-                                    <img src="static/images/ministries-img-3.jpg" alt="">
+                                    <img src="/static/images/ministries-img-3.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -818,7 +663,7 @@
 
                         <!-- Ministries Btn Start -->
                         <div class="ministries-btn">
-                            <a href="#" class="readmore-btn"><img src="static/images/arrow-white.svg" alt=""></a>
+                            <a href="#" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
                         </div>
                         <!-- Ministries Btn End -->
                     </div>
@@ -856,7 +701,7 @@
                         <div class="sermons-image">
                             <figure>
                                 <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="static/images/sermons-img-1.jpg" alt="">
+                                    <img src="/static/images/sermons-img-1.jpg" alt="">
                                 </a>
                             </figure>
                             <!-- Sermons Meta Start -->
@@ -867,7 +712,7 @@
                             <!-- Sermons Meta End -->
 
                             <div class="sermons-audio-icon">
-                                <a href="#"><img src="static/images/audio-play-icon.svg" alt=""></a>
+                                <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
                             </div>
                         </div>
                         <!-- Sermons Image End -->
@@ -903,7 +748,7 @@
                         <div class="sermons-image">
                             <figure>
                                 <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="static/images/sermons-img-2.jpg" alt="">
+                                    <img src="/static/images/sermons-img-2.jpg" alt="">
                                 </a>
                             </figure>
                             <!-- Sermons Meta Start -->
@@ -914,7 +759,7 @@
                             <!-- Sermons Meta End -->
 
                             <div class="sermons-audio-icon">
-                                <a href="#"><img src="static/images/audio-play-icon.svg" alt=""></a>
+                                <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
                             </div>
                         </div>
                         <!-- Sermons Image End -->
@@ -950,7 +795,7 @@
                         <div class="sermons-image">
                             <figure>
                                 <a href="#" class="image-anime" data-cursor-text="View">
-                                    <img src="static/images/sermons-img-3.jpg" alt="">
+                                    <img src="/static/images/sermons-img-3.jpg" alt="">
                                 </a>
                             </figure>
                             <!-- Sermons Meta Start -->
@@ -961,7 +806,7 @@
                             <!-- Sermons Meta End -->
 
                             <div class="sermons-audio-icon">
-                                <a href="#"><img src="static/images/audio-play-icon.svg" alt=""></a>
+                                <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
                             </div>
                         </div>
                         <!-- Sermons Image End -->
@@ -1064,7 +909,7 @@
                 <div class="col-lg-6">
                     <div class="event-image">
                         <figure class="image-anime reveal">
-                            <img src="static/images/event-image.jpg" alt="">
+                            <img src="/static/images/event-image.jpg" alt="">
                         </figure>
                     </div>
                 </div>
@@ -1254,7 +1099,7 @@
                         <div class="post-featured-image" data-cursor-text="View">
                             <figure>
                                 <a href="#" class="image-anime">
-                                    <img src="static/images/post-1.jpg" alt="">
+                                    <img src="/static/images/post-1.jpg" alt="">
                                 </a>
                             </figure>
                         </div>
@@ -1282,7 +1127,7 @@
                         <div class="post-featured-image" data-cursor-text="View">
                             <figure>
                                 <a href="#" class="image-anime">
-                                    <img src="static/images/post-2.jpg" alt="">
+                                    <img src="/static/images/post-2.jpg" alt="">
                                 </a>
                             </figure>
                         </div>
@@ -1310,7 +1155,7 @@
                         <div class="post-featured-image" data-cursor-text="View">
                             <figure>
                                 <a href="#" class="image-anime">
-                                    <img src="static/images/post-3.jpg" alt="">
+                                    <img src="/static/images/post-3.jpg" alt="">
                                 </a>
                             </figure>
                         </div>
@@ -1371,181 +1216,4 @@
     </div>
     <!-- Subscribe Newsletter Section End -->
 
-    <!-- Footer Start -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <!-- About Footer Start -->
-                    <div class="about-footer">
-                        <!-- Footer Logo Start -->
-                        <div class="footer-logo">
-                            <img src="static/images/footer-logo.svg" alt="">
-                        </div>
-                        <!-- Footer Logo End -->
-
-                        <!-- About Footer Content Start -->
-                        <div class="about-footer-content">
-                            <p>Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has
-                                been the industry's.</p>
-                        </div>
-                        <!-- Footer Social Links Start -->
-                        <div class="footer-social-links">
-                            <ul>
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- Footer Social Links End -->
-
-                    </div>
-                    <!-- About Footer End -->
-                </div>
-
-                <div class="col-lg-2 col-md-3 col-6">
-                    <!-- About Links Start -->
-                    <div class="footer-links">
-                        <h3>quick links</h3>
-                        <ul>
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">our chruch</a></li>
-                            <li><a href="#">services</a></li>
-                            <li><a href="#">event</a></li>
-                            <li><a href="#">news</a></li>
-                        </ul>
-                    </div>
-                    <!-- About Links End -->
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-6">
-                    <!-- About Links Start -->
-                    <div class="footer-links">
-                        <h3>our services</h3>
-                        <ul>
-                            <li><a href="#">support groups</a></li>
-                            <li><a href="#">special events</a></li>
-                            <li><a href="#">online services</a></li>
-                            <li><a href="#">pastoral care</a></li>
-                            <li><a href="#">sunday worship</a></li>
-                        </ul>
-                    </div>
-                    <!-- About Links End -->
-                </div>
-
-                <div class="col-lg-3 col-md-5">
-                    <!-- About Links Start -->
-                    <div class="footer-contact">
-                        <h3>contact</h3>
-                        <!-- Footer Contact Details Start -->
-                        <div class="footer-contact-details">
-                            <!-- Footer Info Box Start -->
-                            <div class="footer-info-box">
-                                <div class="icon-box">
-                                    <img src="static/images/icon-phone.svg" alt="">
-                                </div>
-                                <div class="footer-info-box-content">
-                                    <p>+254 748155432</p>
-                                </div>
-                            </div>
-                            <!-- Footer Info Box End -->
-
-                            <!-- Footer Info Box Start -->
-                            <div class="footer-info-box">
-                                <div class="icon-box">
-                                    <img src="static/images/icon-mail.svg" alt="">
-                                </div>
-                                <div class="footer-info-box-content">
-                                    <p>info@citylighters.co.ke</p>
-                                </div>
-                            </div>
-                            <!-- Footer Info Box End -->
-
-                            <!-- Footer Info Box Start -->
-                            <div class="footer-info-box">
-                                <div class="icon-box">
-                                    <img src="static/images/icon-location.svg" alt="">
-                                </div>
-                                <div class="footer-info-box-content">
-                                    <p>Nairobi Cinema, Aga Khan Walk, Nairobi, KE.</p>
-                                </div>
-                            </div>
-                            <!-- Footer Info Box End -->
-                        </div>
-                        <!-- Footer Contact Details End -->
-                    </div>
-                    <!-- About Links End -->
-                </div>
-            </div>
-
-            <!-- Footer Copyright Section Start -->
-            <div class="footer-copyright">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <!-- Footer Copyright Start -->
-                        <div class="footer-copyright-text">
-                            <p>Copyright 2024 City Lighters Church. All Rights Reserved.</p>
-                        </div>
-                        <!-- Footer Copyright End -->
-                    </div>
-
-                    <div class="col-lg-6 col-md-6">
-                        <!-- Footer Social Link Start -->
-                        <div class="footer-privacy-policy">
-                            <ul>
-                                <li><a href="#">term & condition</a></li>
-                                <li><a href="#">support</a></li>
-                                <li><a href="#">privacy policy</a></li>
-                            </ul>
-                        </div>
-                        <!-- Footer Social Link End -->
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Copyright Section End -->
-        </div>
-    </footer>
-    <!-- Footer End -->
-
-    <!-- Jquery Library File -->
-    <script src="static/js/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap js file -->
-    <script src="static/js/bootstrap.min.js"></script>
-    <!-- Validator js file -->
-    <script src="static/js/validator.min.js"></script>
-    <!-- SlickNav js file -->
-    <script src="static/js/jquery.slicknav.js"></script>
-    <!-- Swiper js file -->
-    <script src="static/js/swiper-bundle.min.js"></script>
-    <!-- Counter js file -->
-    <script src="static/js/jquery.waypoints.min.js"></script>
-    <script src="static/js/jquery.counterup.min.js"></script>
-    <!-- Magnific js file -->
-    <script src="static/js/jquery.magnific-popup.min.js"></script>
-    <!-- SmoothScroll -->
-    <script src="static/js/SmoothScroll.js"></script>
-    <!-- Parallax js -->
-    <script src="static/js/parallaxie.js"></script>
-    <!-- MagicCursor js file -->
-    <script src="static/js/gsap.min.js"></script>
-    <script src="static/js/magiccursor.js"></script>
-    <!-- Text Effect js file -->
-    <script src="static/js/SplitText.js"></script>
-    <script src="static/js/ScrollTrigger.min.js"></script>
-    <!-- YTPlayer js File -->
-    <script src="static/js/jquery.mb.YTPlayer.min.js"></script>
-    <!-- Audio js File -->
-    <script src="static/js/plyr.js"></script>
-    <!-- Wow js file -->
-    <script src="static/js/wow.js"></script>
-    <!-- Main Custom js file -->
-    <script src="static/js/function.js"></script>
-    <script src="../../assets/js/theme-panel.js"></script>
-
-    <script src="{% static 'js/event.js' %}"></script>
-</body>
-
-<!-- Mirrored from demo.awaikenthemes.com/html-preview/City Lighters Church/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Sep 2024 20:22:02 GMT -->
-
-</html>
+{% endblock %}

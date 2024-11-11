@@ -1,4 +1,3 @@
-# api/models.py
 from django.db import models
 from django.utils import timezone
 
@@ -11,7 +10,6 @@ class Event(models.Model):
     custom_fields = models.JSONField(default=dict, blank=True, null=True)
     image = models.ImageField(upload_to='event_images/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
-
     def __str__(self):
         return self.name
 
@@ -19,20 +17,15 @@ class EventRegistration(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15)
-    email = models.EmailField(blank=True, null=True)  # Optional field
+    email = models.EmailField(blank=True, null=True)
     registered_at = models.DateTimeField(auto_now_add=True)
-    validated = models.BooleanField(default=False)  # New field for tracking validation
-
+    validated = models.BooleanField(default=False)
     class Meta:
-        unique_together = ('event', 'email')  # Ensure unique registration per email per event
-
+        unique_together = ('event', 'email')
     def __str__(self):
         return f"{self.name} - {self.event.name}"
 
-
-
 class AdminSettings(models.Model):
-    validation_password = models.CharField(max_length=100, default='admin')  # Default password
-
+    validation_password = models.CharField(max_length=100, default='admin')
     def __str__(self):
         return "Admin Settings"

@@ -12,7 +12,7 @@ def home(request):
     except requests.exceptions.RequestException:
         events = []
 
-    return render(request, 'index.html', {'events': events})
+    return render(request, 'index.html', {'events': events, 'title': 'Homepage'})
 
 def about(request):
     return render(request, 'about.html')
