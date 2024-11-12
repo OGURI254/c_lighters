@@ -1,0 +1,39 @@
+{% if pastors %}
+<div class="row">
+    {% for pastor in pastors %}
+    <div class="col-lg-3 col-md-6">
+        <!-- Team Member Item Start -->
+        <div class="team-member-item wow fadeInUp">
+            <!-- Team Image Start -->
+            <div class="team-image">
+                <figure class="image-anime">
+                    <img src="{{ pastor.img.url }}" alt="{{ pastor.position }}">
+                </figure>
+    
+                <!-- Team Social Icon Start -->
+                <div class="team-social-icon">
+                    <ul>
+                        <li><a href="{{ pastor.fb_url }}" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="{{ pastor.linkedin_url }}" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href="{{ pastor.ig_url }}" class="social-icon"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="{{ pastor.x_url }}" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    </ul>
+                </div>
+                <!-- Team Social Icon End -->
+            </div>
+            <!-- Team Image End -->
+    
+            <!-- Team Content Start -->
+            <div class="team-content">
+                <h3>{{ pastor.user.get_full_name|title|default:'No Name Found' }}</h3>
+                <p>{{ pastor.position|title }}</p>
+            </div>
+            <!-- Team Content End -->
+        </div>
+        <!-- Team Member Item End -->
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No Pastor Found</p>
+{% endif %}

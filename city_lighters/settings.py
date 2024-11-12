@@ -72,13 +72,6 @@ TIME_ZONE = 'Africa/Nairobi'
 USE_I18N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-JAZZMIN_SETTINGS = {
-    "site_title": "CityLighters Admin",
-    "site_header": "City Lighters",
-    # "search_model": ["auth.User", "auth.Group"],
-    "copyright": "City Lighters",
-    "topmenu_links": [{"app": "api"}]
-}
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'

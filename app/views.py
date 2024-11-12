@@ -1,7 +1,8 @@
 import requests
 
 from django.shortcuts import render
-from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact
+from django.core.paginator import Paginator
+from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery
 
 def home(request):
     api_url = 'http://localhost:8000/events/'  
@@ -12,7 +13,11 @@ def home(request):
         events = []
     context = {
         'title': 'Homepage',
-        'events': events 
+        'events': events,
+        'services': Service.objects.filter(is_active=True)[:4],
+        'ministries': Ministry.objects.filter(is_active=True)[:3],
+        'sermons': Sermon.objects.filter(is_active=True)[:3],
+        'blogs': Blog.objects.filter(is_published=True)[:3]
     }
     return render(request, 'index.html', context)
 
@@ -26,7 +31,8 @@ def about(request):
 # Services Page
 def services(request):
     context = {
-        'title': 'Services'
+        'title': 'Services',
+        'services': Service.objects.filter(is_active=True)
     }
     return render(request, 'service.html', context)
 
@@ -36,8 +42,12 @@ def service_details(request, slug):
 
 # Blog Page
 def blog(request):
+    paginator = Paginator(Blog.objects.filter(is_published=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': 'Blogs',
+        'blogs': page_obj
     }
     return render(request, 'blog.html', context)
 
@@ -47,8 +57,12 @@ def blog_details(request, slug):
 
 # Sermons Page
 def sermons(request):
+    paginator = Paginator(Sermon.objects.filter(is_active=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': 'Sermons',
+        'sermons': page_obj
     }
     return render(request, 'sermons.html', context)
 
@@ -57,15 +71,23 @@ def sermon_details(request, slug):
     return render(request, 'sermons-single.html')
 
 def cell_groups(request):
+    paginator = Paginator(CellGroup.objects.filter(is_active=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': 'Cell Groups',
+        'cellgroups': page_obj
     }
     return render(request, 'campaign.html', context)
 
 # Ministries Page
 def ministries(request):
+    paginator = Paginator(Ministry.objects.filter(is_active=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        'title': 'Ministries'
+        'title': 'Ministries',
+        'ministries': page_obj
     }
     return render(request, 'ministries.html', context)
 
@@ -75,28 +97,38 @@ def ministry_details(request, slug):
 
 # Pastor Page
 def pastor(request):
+    paginator = Paginator(Pastor.objects.filter(user__is_active=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': 'Pastors',
+        'pastors': page_obj
     }
     return render(request, 'pastor.html', context)
 
 # Gallery Page
 def gallery(request):
+    paginator = Paginator(Gallery.objects.filter(is_active=True), 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': 'Gallery',
+        'images': page_obj
     }
     return render(request, 'gallery.html', context)
 
 # Contact Us Page
 def contact(request):
+    if request.method == 'POST':
+        pass
     context = {
         'title': 'Contact Us',
     }
     return render(request, 'contact.html', context)
 
-# scanner
+# @require_staff
 def scanner(request):
     context = {
-        'title': 'Scanners',
+        'title': 'QR Code Scanner/Reader',
     }
     return render(request, 'scanner.html', context)

@@ -1,24 +1,25 @@
 {% if sermons %}
     <div class="row">
+        {% for sermon in sermons %}
         <div class="col-lg-4 col-md-6">
             <!-- Sermons Item Start -->
             <div class="sermons-item wow fadeInUp">
                 <!-- Sermons Image Start -->
                 <div class="sermons-image">
                     <figure>
-                        <a href="#" class="image-anime" data-cursor-text="View">
-                            <img src="/static/images/sermons-img-1.jpg" alt="">
+                        <a href="{{ sermon.get_absolute_url }}" class="image-anime" data-cursor-text="View">
+                            <img src="{{ sermon.img.url }}" alt="{{ sermon.title }}">
                         </a>
                     </figure>
                     <!-- Sermons Meta Start -->
                     <div class="sermons-meta">
-                        <h3>03</h3>
-                        <p>aug</p>
+                        <h3>{{ sermon.start_time|date:'d' }}</h3>
+                        <p>{{ sermon.start_time|date:'M' }}</p>
                     </div>
                     <!-- Sermons Meta End -->
 
                     <div class="sermons-audio-icon">
-                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
+                        <a href="{{ sermon.get_absolute_url }}"><img src="/static/images/audio-play-icon.svg" alt="{{ sermon.title }}"></a>
                     </div>
                 </div>
                 <!-- Sermons Image End -->
@@ -27,16 +28,16 @@
                 <div class="sermons-body">
                     <!-- Sermons Title Start -->
                     <div class="sermons-title">
-                        <h2>Start a New Way of Living</h2>
+                        <h2>{{ sermon.title }}</h2>
                     </div>
                     <!-- Sermons Title End -->
 
                     <!-- Sermons List Start -->
                     <div class="sermons-list">
                         <ul>
-                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
-                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
-                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
+                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>{{ sermon.author.get_full_name|default:'No Name Provided' }}</span></li>
+                            <li><i class="fa-solid fa-tag"></i>Categories : <span>{{ sermon.category }}</span></li>
+                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>{{ sermon.start_time }} - {{ sermon.end_time }}</span></li>
                         </ul>
                     </div>
                     <!-- Sermons List End -->
@@ -45,108 +46,19 @@
             </div>
             <!-- Sermons Item End -->
         </div>
-
-        <div class="col-lg-4 col-md-6">
-            <!-- Sermons Item Start -->
-            <div class="sermons-item wow fadeInUp" data-wow-delay="0.25s">
-                <!-- Sermons Image Start -->
-                <div class="sermons-image">
-                    <figure>
-                        <a href="#" class="image-anime" data-cursor-text="View">
-                            <img src="/static/images/sermons-img-2.jpg" alt="">
-                        </a>
-                    </figure>
-                    <!-- Sermons Meta Start -->
-                    <div class="sermons-meta">
-                        <h3>03</h3>
-                        <p>aug</p>
-                    </div>
-                    <!-- Sermons Meta End -->
-
-                    <div class="sermons-audio-icon">
-                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
-                    </div>
-                </div>
-                <!-- Sermons Image End -->
-
-                <!-- Sermons Body Start -->
-                <div class="sermons-body">
-                    <!-- Sermons Title Start -->
-                    <div class="sermons-title">
-                        <h2>overcoming life's challenges</h2>
-                    </div>
-                    <!-- Sermons Title End -->
-
-                    <!-- Sermons List Start -->
-                    <div class="sermons-list">
-                        <ul>
-                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
-                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
-                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
-                        </ul>
-                    </div>
-                    <!-- Sermons List End -->
-                </div>
-                <!-- Sermons Body End -->
-            </div>
-            <!-- Sermons Item End -->
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-            <!-- Sermons Item Start -->
-            <div class="sermons-item wow fadeInUp" data-wow-delay="0.5s">
-                <!-- Sermons Image Start -->
-                <div class="sermons-image">
-                    <figure>
-                        <a href="#" class="image-anime" data-cursor-text="View">
-                            <img src="/static/images/sermons-img-3.jpg" alt="">
-                        </a>
-                    </figure>
-                    <!-- Sermons Meta Start -->
-                    <div class="sermons-meta">
-                        <h3>03</h3>
-                        <p>aug</p>
-                    </div>
-                    <!-- Sermons Meta End -->
-
-                    <div class="sermons-audio-icon">
-                        <a href="#"><img src="/static/images/audio-play-icon.svg" alt=""></a>
-                    </div>
-                </div>
-                <!-- Sermons Image End -->
-
-                <!-- Sermons Body Start -->
-                <div class="sermons-body">
-                    <!-- Sermons Title Start -->
-                    <div class="sermons-title">
-                        <h2>hope in times of trouble</h2>
-                    </div>
-                    <!-- Sermons Title End -->
-
-                    <!-- Sermons List Start -->
-                    <div class="sermons-list">
-                        <ul>
-                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>John Due</span></li>
-                            <li><i class="fa-solid fa-tag"></i>Categories : <span>Pray</span></li>
-                            <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>Aug 03 - on 7:00 am - 11:00 am</span></li>
-                        </ul>
-                    </div>
-                    <!-- Sermons List End -->
-                </div>
-                <!-- Sermons Body End -->
-            </div>
-            <!-- Sermons Item End -->
-        </div>
+        {% endfor %}
         {% if not title == "Homepage" %}
             <div class="col-lg-12">
                 <!-- Page Pagination Start -->
                 <div class="page-pagination wow fadeInUp" data-wow-delay="0.5s">
                     <ul class="pagination">
-                        <li><a href="#"><i class="fa-solid fa-arrow-left-long"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                        {% if sermons.has_previous %}
+                            <li><a href="?page={{ sermons.previous_page_number }}"><i class="fa-solid fa-arrow-left-long"></i></a></li>
+                        {% endif %}
+                            <li class="active"><a href="?page={{ sermons.number }}">{{ sermons.number }}</a></li>
+                        {% if sermons.has_next %}
+                            <li><a href="?page={{ sermons.next_page_number }}"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- Page Pagination End -->

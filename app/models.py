@@ -113,6 +113,7 @@ class CellGroup(models.Model):
 class Pastor(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='user')
     position = models.CharField(max_length=120)
+    img = models.ImageField(upload_to="pastor/")
     fb_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
     ig_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
     linkedin_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
