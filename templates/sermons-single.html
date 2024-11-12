@@ -7,46 +7,19 @@
                 <div class="col-lg-8">
                     <!-- Sermons Single Content Start -->
                     <div class="sermons-single-content">
-                        <!-- Sermons Audio Player Start -->
-                        <div class="sermons-audio-player">
-                            <audio id="player" controls>
-                                <source src="https://demo.awaikenthemes.com/assets/videos/City Lighters Church-audio.mp3" type="audio/mp3">
-                            </audio>
-                        </div>
-                        <!-- Sermons Audio Player End -->
-
                         <!-- Sermons Featured Image Start -->
                         <div class="sermons-featured-image">
                             <figure class="image-anime reveal">
-                                <img src="/static/images/sermons-img-1.jpg" alt="">
+                                <img src="{{ sermon.img.url }}" alt="{{ sermon.title }}">
                             </figure>
                         </div>
                         <!-- Sermons Featured Image End -->
-
                         <!-- Sermons Entry Content Start -->
                         <div class="sermons-entry">
                             <h2 class="text-anime-style-2" data-cursor="-opaque">Sermon Notes:-</h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Join us for an inspiring sermon on "Start a New Way of Living." Discover how embracing faith can transform your life, guiding you towards a path of purpose, fulfillment, and joy. Through powerful scripture, heartfelt worship, and practical teachings, we will explore how to let go of past burdens, adopt a Christ-centered mindset, and live in alignment with God's plan. Whether you're seeking a fresh start or deeper spiritual growth, this sermon will provide the encouragement and tools you need to embark on a transformative journey. Come and experience the blessings of a renewed life in Christ.</p>
-                            <p class="wow fadeInUp" data-wow-delay="0.4s">Discover how faith can transform your life. Learn to let go of past burdens, embrace a Christ-centered mindset, and live in alignment with God's plan. Experience the blessings of a renewed life in Christ.</p>
-                            <p class="wow fadeInUp" data-wow-delay="0.6s">where we explore the profound impact of embracing faith in Christ. This sermon is designed to guide you through the process of letting go of past burdens and adopting a Christ-centered mindset, helping you to align your life with God's divine plan. Through engaging scripture, heartfelt worship, and practical teachings, you'll learn how to navigate life's challenges with a renewed sense of purpose and joy. Whether you're seeking a fresh start, deeper spiritual growth, or simply a more fulfilling path, this message will provide the tools and inspiration you need. Our community is dedicated to supporting each other on this journey, fostering an environment of love, support, and spiritual enrichment. Experience the peace, joy, and fulfillment that come from living a life renewed in faith. Don't miss this opportunity to start anew and discover the incredible blessings that await you in a Christ-centered life. Come and be a part of this life-changing experience. Are you feeling weighed down by the burdens of your past? Do you yearn for a fresh start and a new direction in life? Join us for an enlightening and transformative sermon titled "Start a New Way of Living," where we delve into the remarkable journey of spiritual renewal and rediscovery through faith in Christ. This sermon will provide you with the tools and insights needed to embrace a new way of living, centered on the teachings and love of Jesus Christ.</p>
+                            {{ sermon.description|linebreaks|default:'No Description' }}
                         </div>
                         <!-- Sermons Entry Content End -->
-
-                        <!-- Sermons Social Sharing Start  -->
-                        <div class="sermons-social-sharing wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="sermons-social-sharing-title">
-                                <h3>Share This Sermon :</h3>
-                            </div>
-                            <div class="sermons-social-sharing-list">
-                                <ul>
-                                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sermons Social Sharing End  -->
                     </div>
                     <!-- Sermons Single Content End -->
                 </div>
@@ -69,7 +42,7 @@
                                 </div>
                                 <div class="about-sermons-content">
                                     <h3>sermon from </h3>
-                                    <p>john due</p>
+                                    <p>{{ sermon.name|title|default:'No Name' }}</p>
                                 </div>
                             </div>
                             <!-- About Sermons Item End -->
@@ -81,7 +54,7 @@
                                 </div>
                                 <div class="about-sermons-content">
                                     <h3>categories</h3>
-                                    <p>pray</p>
+                                    <p>{{ sermon.category.title }}</p>
                                 </div>
                             </div>
                             <!-- About Sermons Item End -->
@@ -93,7 +66,7 @@
                                 </div>
                                 <div class="about-sermons-content">
                                     <h3>date & time</h3>
-                                    <p>aug 03 - on 7:00 am - 11:00 am</p>
+                                    <p>{{ sermon.start_time }} - {{ sermon.end_time }}</p>
                                 </div>
                             </div>
                             <!-- About Sermons Item End -->

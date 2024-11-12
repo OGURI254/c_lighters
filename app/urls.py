@@ -1,8 +1,5 @@
-# app/urls.py
-
 from django.urls import path
 from . import views
-
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -20,4 +17,6 @@ urlpatterns = [
     path('galleries/', views.gallery, name='gallery'),
     path('contacts/', views.contact, name='contact'),
     path('validate/', views.scanner, name='validate'),
+    path('terms/', views.terms, name='terms'),
+    path('privacy/', views.privacy, name='privacy'),
 ]

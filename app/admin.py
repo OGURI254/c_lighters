@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Category, CellGroup, Contact, Gallery, Pastor, Sermon, Service, ServiceImage, Ministry, MinistryImage
+from .models import Blog, Category, CellGroup, Contact, Gallery, Pastor, Sermon, Service, ServiceImage, Ministry, MinistryImage, CommonPage
 
 # Register your models here.
 class ServiceImageInline(admin.TabularInline):
@@ -12,7 +12,8 @@ class MinistryImageInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'is_active', 'created_at', 'updated_at']
+    list_display = ['title', 'is_active', 'created_at', 'updated_at']
+    readonly_fields = ['slug', ]
     search_fields = ['title',]
     list_filter = ['is_active', 'created_at', 'updated_at']
     date_hierarchy = 'updated_at'
@@ -22,6 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ['title', 'icon', 'is_active', 'created_at', 'updated_at']
+    readonly_fields = ['slug', ]
     search_fields = ['title', 'overview']
     list_filter = ['is_active', 'created_at', 'updated_at']
     date_hierarchy = 'updated_at'
@@ -32,6 +34,7 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(Ministry)
 class MinistryAdmin(admin.ModelAdmin):
     list_display = ['title', 'front_img', 'is_active', 'created_at', 'updated_at']
+    readonly_fields = ['slug', ]
     search_fields = ['title', 'description']
     list_filter = ['is_active', 'created_at', 'updated_at']
     date_hierarchy = 'updated_at'
@@ -42,6 +45,7 @@ class MinistryAdmin(admin.ModelAdmin):
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'img', 'is_published', 'created_at', 'updated_at']
+    readonly_fields = ['slug', ]
     search_fields = ['title', 'description']
     list_filter = ['is_published', 'created_at', 'updated_at']
     date_hierarchy = 'updated_at'
@@ -50,9 +54,10 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Sermon)
 class SermonAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'category__title', 'start_time', 'end_time', 'is_active', 'updated_at']
-    search_fields = ['title', 'description', 'category__title']
-    list_filter = ['is_active', 'author', 'category', 'created_at', 'updated_at']
+    list_display = ['title', 'name', 'category__title', 'start_time', 'end_time', 'is_active', 'updated_at']
+    readonly_fields = ['slug', ]
+    search_fields = ['title', 'name', 'description', 'category__title']
+    list_filter = ['is_active', 'category', 'created_at', 'updated_at']
     date_hierarchy = 'start_time'
     ordering = ['is_active', 'start_time']
     list_per_page = 20
@@ -90,4 +95,13 @@ class ContactAdmin(admin.ModelAdmin):
     list_filter = ['is_addressed', 'created_at', 'updated_at']
     date_hierarchy = 'created_at'
     ordering = ['is_addressed', 'created_at']
+    list_per_page = 20
+
+@admin.register(CommonPage)
+class CommonPageAdmin(admin.ModelAdmin):
+    list_display = ['title', 'is_active', 'updated_at', 'created_at']
+    search_fields = ['title', 'description']
+    list_filter = ['is_active', 'created_at', 'updated_at']
+    date_hierarchy = 'created_at'
+    ordering = ['is_active', 'created_at']
     list_per_page = 20

@@ -6,22 +6,21 @@
                 <div class="about-footer">
                     <!-- Footer Logo Start -->
                     <div class="footer-logo">
-                        <img src="/static/images/footer-logo.svg" alt="">
+                        <img src="/static/images/logo.svg" alt="">
                     </div>
                     <!-- Footer Logo End -->
 
                     <!-- About Footer Content Start -->
                     <div class="about-footer-content">
-                        <p>Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has
-                            been the industry's.</p>
+                        <p>We are a vibrant community of believers dedicated to worship, fellowship, and service.</p>
                     </div>
                     <!-- Footer Social Links Start -->
                     <div class="footer-social-links">
                         <ul>
-                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="https://www.facebook.com/citylighterschurch/"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="https://twitter.com/citylightersch"><i class="fa-brands fa-x-twitter"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/city-light-church"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            <li><a href="https://www.instagram.com/citylighterschurch/?hl=en"><i class="fa-brands fa-instagram"></i></a></li>
                         </ul>
                     </div>
                     <!-- Footer Social Links End -->
@@ -35,11 +34,11 @@
                 <div class="footer-links">
                     <h3>quick links</h3>
                     <ul>
-                        <li><a href="#">home</a></li>
-                        <li><a href="#">our chruch</a></li>
-                        <li><a href="#">services</a></li>
-                        <li><a href="#">event</a></li>
-                        <li><a href="#">news</a></li>
+                        <li><a href="/">home</a></li>
+                        <li><a href="{% url  'about' %}">about us</a></li>
+                        <li><a href="{% url 'services' %}">services</a></li>
+                        <li><a href="">events</a></li>
+                        <li><a href="{% url 'blog' %}">news</a></li>
                     </ul>
                 </div>
                 <!-- About Links End -->
@@ -48,13 +47,13 @@
             <div class="col-lg-3 col-md-4 col-6">
                 <!-- About Links Start -->
                 <div class="footer-links">
-                    <h3>our services</h3>
+                    <h3></h3>
                     <ul>
-                        <li><a href="#">support groups</a></li>
-                        <li><a href="#">special events</a></li>
-                        <li><a href="#">online services</a></li>
-                        <li><a href="#">pastoral care</a></li>
-                        <li><a href="#">sunday worship</a></li>
+                        <li><a href="{% url 'sermons' %}">sermons</a></li>
+                        <li><a href="{% url 'campaign' %}">cell groups</a></li>
+                        <li><a href="{% url 'ministries' %}">ministries</a></li>
+                        <li><a href="{% url  'pastor' %}">pastors</a></li>
+                        <li><a href="{% url 'contact' %}">contact us</a></li>
                     </ul>
                 </div>
                 <!-- About Links End -->
@@ -120,9 +119,8 @@
                     <!-- Footer Social Link Start -->
                     <div class="footer-privacy-policy">
                         <ul>
-                            <li><a href="#">term & condition</a></li>
-                            <li><a href="#">support</a></li>
-                            <li><a href="#">privacy policy</a></li>
+                            <li><a href="{% url 'terms' %}">term & condition</a></li>
+                            <li><a href="{% url 'privacy' %}">privacy policy</a></li>
                         </ul>
                     </div>
                     <!-- Footer Social Link End -->

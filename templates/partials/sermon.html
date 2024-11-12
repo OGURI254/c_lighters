@@ -35,7 +35,7 @@
                     <!-- Sermons List Start -->
                     <div class="sermons-list">
                         <ul>
-                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>{{ sermon.author.get_full_name|default:'No Name Provided' }}</span></li>
+                            <li><i class="fa-solid fa-user"></i>Sermon From : <span>{{ sermon.name|default:'No Name Provided' }}</span></li>
                             <li><i class="fa-solid fa-tag"></i>Categories : <span>{{ sermon.category }}</span></li>
                             <li><i class="fa-regular fa-calendar-days"></i>Date & Time : <span>{{ sermon.start_time }} - {{ sermon.end_time }}</span></li>
                         </ul>

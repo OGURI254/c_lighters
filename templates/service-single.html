@@ -7,39 +7,22 @@
                 <div class="col-lg-8">
                     <!-- Service Single Content Start -->
                     <div class="service-single-content">
+                        {% if service.images.all %}
                         <!-- Service Single Slider Start -->
                         <div class="service-single-slider">
                             <div class="swiper">
                                 <div class="swiper-wrapper">
+                                    {% for image in service.images.all %}
                                     <!-- Service Image Slide Start -->
                                     <div class="swiper-slide">
                                         <div class="service-slider-image">
                                             <figure>
-                                                <img src="/static/images/service-single-img.jpg" alt="">
+                                                <img src="{{ image.img.url }}" alt="{{ service.title }}">
                                             </figure>
                                         </div>
                                     </div>
                                     <!-- Service Image Slide End -->
-
-                                    <!-- Service Image Slide Start -->
-                                    <div class="swiper-slide">
-                                        <div class="service-slider-image">
-                                            <figure>
-                                                <img src="/static/images/service-single-img.jpg" alt="">
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    <!-- Service Image Slide End -->
-
-                                    <!-- Service Image Slide Start -->
-                                    <div class="swiper-slide">
-                                        <div class="service-slider-image">
-                                            <figure>
-                                                <img src="/static/images/service-single-img.jpg" alt="">
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    <!-- Service Image Slide End -->
+                                    {% endfor %}
                                 </div>
                                 <div class="service-single-btn">
                                     <div class="service-single-button-prev"></div>
@@ -48,18 +31,11 @@
                             </div>
                         </div>
                         <!-- Service Single Slider End -->
-
+                        {% endif %}
                         <!-- Service Entry Content Start -->
                         <div class="service-entry">
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Christmas Eve Candlelight Service</h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Join us for the Christmas Eve Candlelight Service to celebrate the birth of Jesus Christ. Enjoy an evening of carols, scripture readings, and worship in a City Lighters Church, candlelit setting. Bring family and friends to share in this beautiful tradition and experience the true spirit of Christmas together.</p>
-                            <p class="wow fadeInUp" data-wow-delay="0.4s">Celebrate Jesus' birth at our Christmas Eve Candlelight Service with carols, scripture readings, and worship in a City Lighters Church, candlelit setting. Bring family and friends.</p>
-                            <ul class="wow fadeInUp" data-wow-delay="0.6s">
-                                <li>Uplifting carols and scripture readings</li>
-                                <li>Atmosphere City Lighters Church, candlelit setting</li>
-                                <li>Fellowship Gather with family and friends</li>
-                                <li>Reflect Embrace the true spirit of Christmas</li>
-                            </ul>
+                            <h2 class="text-anime-style-2" data-cursor="-opaque">{{ service.title }}</h2>
+                            {{ service.description|linebreaks|default:'No Description' }}
                         </div>
                         <!-- Service Entry Content End -->
 
@@ -84,11 +60,13 @@
                         <div class="service-catagery-list wow fadeInUp">
                             <h3>our services</h3>
                             <ul>
-                                <li><a href="#">support groups</a></li>
-                                <li><a href="#">online services</a></li>
-                                <li><a href="#">pastoral care</a></li>
-                                <li><a href="#">sunday worship</a></li>
-                                <li><a href="#">midweek prayer</a></li>
+                                {% if services%}
+                                    {% for service in services %}
+                                    <li><a href="{{ service.get_absolute_url }}">{{ service.title|truncatechars:'40' }}</a></li>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No Service Found</p>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- Service Categories List End -->
@@ -105,7 +83,7 @@
                                     <p>Need assistance? We're here to help with support, guidance, and resources. Reach out to us anytime.</p>
                                 </div>
                                 <div class="cta-contact-btn">
-                                    <a href="#" class="btn-default btn-highlighted">contact now</a>
+                                    <a href="{% url 'contact' %}" class="btn-default btn-highlighted">contact now</a>
                                 </div>
                             </div>
                             <!-- Cta Contact Item End -->

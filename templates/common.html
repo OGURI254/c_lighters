@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Page Blog Start -->
+    <div class="page-blog">
+        <div class="container">
+            <h2>{{ page.title }}</h2>
+            <p>{{ page.description|linebreaks|default:'No Description' }}</p>
+        </div>
+    </div>
+    <!-- Page Blog End -->
+{% endblock %}

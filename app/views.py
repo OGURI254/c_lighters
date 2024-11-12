@@ -1,8 +1,8 @@
 import requests
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery
+from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage
 
 def home(request):
     api_url = 'http://localhost:8000/events/'  
@@ -38,7 +38,13 @@ def services(request):
 
 # Service Details Page
 def service_details(request, slug):
-    return render(request, 'service-single.html')
+    service = get_object_or_404(Service, slug=slug, is_active=True)
+    context = {
+        'title': service.title,
+        'service': service,
+        'services': Service.objects.filter(is_active=True)
+    }
+    return render(request, 'service-single.html', context)
 
 # Blog Page
 def blog(request):
@@ -53,7 +59,12 @@ def blog(request):
 
 # Blog Details Page
 def blog_details(request, slug):
-    return render(request, 'blog-single.html')
+    blog = get_object_or_404(Blog, slug=slug, is_published=True)
+    context = {
+        'title': blog.title,
+        'blog': blog,
+    }
+    return render(request, 'blog-single.html', context)
 
 # Sermons Page
 def sermons(request):
@@ -68,7 +79,12 @@ def sermons(request):
 
 # Sermon Details Page
 def sermon_details(request, slug):
-    return render(request, 'sermons-single.html')
+    sermon = get_object_or_404(Sermon, slug=slug, is_active=True)
+    context = {
+        'title': sermon.title,
+        'sermon': sermon,
+    }
+    return render(request, 'sermons-single.html', context)
 
 def cell_groups(request):
     paginator = Paginator(CellGroup.objects.filter(is_active=True), 6)
@@ -93,7 +109,12 @@ def ministries(request):
 
 # Ministry Details Page
 def ministry_details(request, slug):
-    return render(request, 'ministry-single.html')
+    ministry = get_object_or_404(Ministry, slug=slug, is_active=True)
+    context = {
+        'title': ministry.title,
+        'ministry': ministry,   
+    }
+    return render(request, 'ministry-single.html', context)
 
 # Pastor Page
 def pastor(request):
@@ -132,3 +153,19 @@ def scanner(request):
         'title': 'QR Code Scanner/Reader',
     }
     return render(request, 'scanner.html', context)
+
+def terms(request):
+    page = CommonPage.objects.filter(title__icontains="Terms").first()
+    context = {
+        'title': page.title,
+        'page': page
+    }
+    return render(request, 'common.html', context)
+
+def privacy(request):
+    page = CommonPage.objects.filter(title__icontains="Privacy").first()
+    context = {
+        'title': page.title,
+        'page': page
+    }
+    return render(request, 'common.html', context)

@@ -1,4 +1,20 @@
 from django.db import models
+from django.urls import reverse
+from city_lighters.utils import slugify_and_append_uuid
+
+class CommonPage(models.Model):
+    title = models.CharField(max_length=120, unique=True)
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('is_active', 'created_at')
+        verbose_name_plural = 'Common Pages'
 
 class Category(models.Model):
     title =  models.CharField(max_length=220, unique=True)
@@ -9,6 +25,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Category, self).save(*args, **kwargs)
     
     class Meta:
         ordering = ('is_active', 'created_at')
@@ -26,12 +47,20 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Service, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('service_details', kwargs={'slug':self.slug})
     
     class Meta:
         ordering = ('is_active', 'created_at')
 
 class ServiceImage(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='service')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='images')
     img = models.ImageField(upload_to="services/images/")
 
     def __str__(self):
@@ -49,12 +78,20 @@ class Ministry(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Ministry, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('ministry_details', kwargs={'slug':self.slug})
+    
     class Meta:
         ordering = ('is_active', 'created_at')
         verbose_name_plural = 'Ministries'
 
 class MinistryImage(models.Model):
-    ministry = models.ForeignKey(Ministry, on_delete=models.CASCADE, related_name='ministry')
+    ministry = models.ForeignKey(Ministry, on_delete=models.CASCADE, related_name='images')
     img = models.ImageField(upload_to="ministry/images/")
 
     def __str__(self):
@@ -72,13 +109,21 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Blog, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('blog_details', kwargs={'slug':self.slug})
+    
     class Meta:
         ordering = ('is_published', 'created_at')
 
 class Sermon(models.Model):
     title =  models.CharField(max_length=220, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='sermons')
+    name = models.CharField(max_length=120)
     category  = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sermons')
     img = models.ImageField(upload_to="blog/")
     description = models.TextField(null=True, blank=True)
@@ -90,6 +135,14 @@ class Sermon(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Sermon, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('sermon_details', kwargs={'slug':self.slug})
     
     class Meta:
         ordering = ('is_active', 'created_at')
