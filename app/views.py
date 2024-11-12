@@ -1,12 +1,12 @@
 from datetime import datetime
-import requests
-
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
+from app.form import EventRegForm
 from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
 def home(request):
-    events = Event.objects.filter(is_active=True, date__gt=datetime.now())
+    events = Event.objects.filter(is_active=True, date__gte=datetime.now())
     context = {
         'title': 'Homepage',
         'events': events.filter(is_special=False)[:3],
@@ -166,3 +166,25 @@ def privacy(request):
         'page': page
     }
     return render(request, 'common.html', context)
+
+def event_details(request, slug):
+    event = get_object_or_404(Event, is_active=True, date__gte=datetime.now(), slug=slug)
+    if request.method == 'POST':
+        form = EventRegForm(request.POST, event=event)
+        try:
+            if form.is_valid():
+                form.save()
+                messages.success(request, f"You've successfully registered for {event.title}!")
+                return redirect('home')
+        except Exception as e:
+            messages.warning(request, f"{e}")   
+            return redirect('event_details', slug)
+    else:
+        form = EventRegForm(event=event) 
+
+    context = {
+        'title': event.title,
+        'event': event,
+        'form': form
+    }
+    return render(request, 'event.html', context)

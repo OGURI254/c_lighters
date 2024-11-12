@@ -19,4 +19,5 @@ urlpatterns = [
     path('validate/', views.scanner, name='validate'),
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
+    path('events/<slug:slug>/', views.event_details, name='event_details'),
 ]

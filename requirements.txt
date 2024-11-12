@@ -15,7 +15,6 @@ pycparser==2.22
 pydyf==0.11.0
 pyphen==0.15.0
 qrcode==8.0
-requests==2.32.3
 sqlparse==0.5.1
 tablib==3.7.0
 tinycss2==1.4.0

@@ -224,6 +224,9 @@ class Event(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse('event_details', kwargs={'slug':self.slug})
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify_and_append_uuid(self.title)
