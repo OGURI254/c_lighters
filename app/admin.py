@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Category, CellGroup, Contact, Gallery, Pastor, Sermon, Service, ServiceImage, Ministry, MinistryImage, CommonPage
+from .models import Blog, Category, CellGroup, Contact, Gallery, Pastor, Sermon, Service, ServiceImage, Ministry, MinistryImage, CommonPage, Event, EventRegistration
 
 # Register your models here.
 class ServiceImageInline(admin.TabularInline):
@@ -104,4 +104,29 @@ class CommonPageAdmin(admin.ModelAdmin):
     list_filter = ['is_active', 'created_at', 'updated_at']
     date_hierarchy = 'created_at'
     ordering = ['is_active', 'created_at']
+    list_per_page = 20
+
+class EventRegistrationInline(admin.TabularInline):
+    model = EventRegistration
+    readonly_fields = ['name', 'phone_number', 'email', 'is_validated', 'created_at']
+    extra = 0
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['title', 'venue', 'date', 'img', 'is_active', 'is_special', 'updated_at']
+    search_fields = ['title', 'venue', 'description']
+    list_filter = ['is_active', 'is_special', 'date', 'created_at', 'updated_at']
+    date_hierarchy = 'date'
+    readonly_fields = ['slug', ]
+    ordering = ['is_active', '-date']
+    list_per_page = 20
+    inlines = [EventRegistrationInline]
+
+@admin.register(EventRegistration)
+class EventRegAdmin(admin.ModelAdmin):
+    list_display = ['name', 'event', 'phone_number',  'email', 'is_validated', 'updated_at']
+    search_fields = ['name', 'phone_number', 'email']
+    list_filter = ['is_validated', 'email', 'event', 'created_at', 'updated_at']
+    date_hierarchy = 'created_at'
+    ordering = ['is_validated', 'created_at']
     list_per_page = 20

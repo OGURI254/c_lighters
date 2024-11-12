@@ -149,7 +149,6 @@ class Sermon(models.Model):
 
 class CellGroup(models.Model):
     title =  models.CharField(max_length=220, unique=True)
-    slug = models.SlugField(max_length=255, unique=True)
     whatsapp_link  = models.URLField()
     img = models.ImageField(upload_to="blog/")
     description = models.TextField(null=True, blank=True, max_length=300)
@@ -162,6 +161,7 @@ class CellGroup(models.Model):
     
     class Meta:
         ordering = ('is_active', 'created_at')
+        verbose_name_plural = 'Cell Groups'
 
 class Pastor(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='user')
@@ -208,3 +208,42 @@ class Contact(models.Model):
     
     class Meta:
         ordering = ('is_addressed', 'created_at')
+
+class Event(models.Model):
+    title = models.CharField(max_length=80)
+    slug = models.SlugField(max_length=120)
+    description = models.TextField(blank=True, null=True)
+    date = models.DateTimeField()
+    venue = models.CharField(max_length=120)
+    is_special = models.BooleanField(default=False)
+    img = models.ImageField(upload_to='events/')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify_and_append_uuid(self.title)
+        super(Event, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ('is_active', 'created_at')
+
+class EventRegistration(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
+    name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField()
+    is_validated = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('event', 'email')
+        verbose_name_plural = 'Event Registrations'
+
+    def __str__(self):
+        return f"{self.name} - {self.event.title}"

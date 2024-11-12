@@ -1,23 +1,20 @@
+from datetime import datetime
 import requests
 
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage
+from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
 def home(request):
-    api_url = 'http://localhost:8000/events/'  
-    try:
-        response = requests.get(api_url)
-        events = response.json() if response.status_code == 200 else []
-    except requests.exceptions.RequestException:
-        events = []
+    events = Event.objects.filter(is_active=True, date__gt=datetime.now())
     context = {
         'title': 'Homepage',
-        'events': events,
+        'events': events.filter(is_special=False)[:3],
+        'special_event': events.filter(is_special=True).first(),
         'services': Service.objects.filter(is_active=True)[:4],
         'ministries': Ministry.objects.filter(is_active=True)[:3],
         'sermons': Sermon.objects.filter(is_active=True)[:3],
-        'blogs': Blog.objects.filter(is_published=True)[:3]
+        'blogs': Blog.objects.filter(is_published=True)[:3],
     }
     return render(request, 'index.html', context)
 
