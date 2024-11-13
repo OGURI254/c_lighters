@@ -1,7 +1,7 @@
 import json
 import os
 import qrcode
-from datetime import datetime
+from django.utils import timezone
 from django.conf import settings
 from app.form import EventRegForm
 from django.contrib import messages
@@ -14,7 +14,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .models import EventRegistration, Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
 def home(request):
-    events = Event.objects.filter(is_active=True, date__gte=datetime.now())
+    events = Event.objects.filter(is_active=True, date__gte=timezone.now())
     context = {
         'title': 'Homepage',
         'events': events[:3],
@@ -181,7 +181,7 @@ def privacy(request):
     return render(request, 'common.html', context)
 
 def event_details(request, slug):
-    event = get_object_or_404(Event, is_active=True, date__gte=datetime.now(), slug=slug)
+    event = get_object_or_404(Event, is_active=True, date__gte=timezone.now(), slug=slug)
     if request.method == 'POST':
         form = EventRegForm(request.POST, event=event)
         try:
@@ -204,7 +204,7 @@ def event_details(request, slug):
     return render(request, 'event.html', context)
 
 def send_ticket(id):
-    reg = get_object_or_404(EventRegistration, event__is_active=True, event__date__gte=datetime.now(), id=id, event__is_special=True)
+    reg = get_object_or_404(EventRegistration, event__is_active=True, event__date__gte=timezone.now(), id=id, event__is_special=True)
     data = {
         "tkt_no": reg.get_id(),
         "name": reg.name,
