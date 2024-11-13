@@ -5,6 +5,8 @@ SECRET_KEY = 'django-insecure-s5qut^w0)e0f5=h_e_e@va(^u08$_qzj4c7uq-inud-0x5@(y3
 DEBUG = True
 ALLOWED_HOSTS = [
     '13.245.109.191',
+    'clc.vstech.co.ke',
+    'www.clc.vstech.co.ke'
     '127.0.0.1',
     'localhost'
 ]
