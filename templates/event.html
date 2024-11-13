@@ -21,7 +21,7 @@
                         </div>
                         <div class="ministry-entry">
                             <h2 class="text-anime-style-2" data-cursor="-opaque">{{ event.title }}</h2>
-                            {{ event.description|linebreaks|default:'No Description Found' }}
+                            {{ event.description|safe|default:'No Description Found' }}
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="ministry-single-info-list">
-                                <form action="" method="POST">
+                                <form action="" method="POST" data-toggle="validator">
                                     {% csrf_token %}
                                     {{ form.as_p }}
                                     <button class="btn-default" type="submit">Submit</button>

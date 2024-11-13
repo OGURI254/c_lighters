@@ -4,7 +4,7 @@
     <div class="page-blog">
         <div class="container">
             <h2>{{ page.title }}</h2>
-            <p>{{ page.description|linebreaks|default:'No Description' }}</p>
+            <p>{{ page.description|safe|default:'No Description' }}</p>
         </div>
     </div>
     <!-- Page Blog End -->

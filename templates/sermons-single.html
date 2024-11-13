@@ -17,7 +17,7 @@
                         <!-- Sermons Entry Content Start -->
                         <div class="sermons-entry">
                             <h2 class="text-anime-style-2" data-cursor="-opaque">Sermon Notes:-</h2>
-                            {{ sermon.description|linebreaks|default:'No Description' }}
+                            {{ sermon.description|safe|default:'No Description' }}
                         </div>
                         <!-- Sermons Entry Content End -->
                     </div>

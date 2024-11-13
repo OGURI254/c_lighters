@@ -1,10 +1,11 @@
 from django.db import models
 from django.urls import reverse
+from django_ckeditor_5.fields import CKEditor5Field
 from city_lighters.utils import slugify_and_append_uuid
 
 class CommonPage(models.Model):
     title = models.CharField(max_length=120, unique=True)
-    description = models.TextField()
+    description = CKEditor5Field('Text', config_name='extends')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -40,7 +41,7 @@ class Service(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     overview = models.TextField(max_length=300)
     icon = models.ImageField(upload_to="services/icon/")
-    description = models.TextField(null=True, blank=True)
+    description = CKEditor5Field('Text', config_name='default')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -70,7 +71,7 @@ class Ministry(models.Model):
     title =  models.CharField(max_length=220, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     front_img = models.ImageField(upload_to="ministry/")
-    description = models.TextField(null=True, blank=True)
+    description = CKEditor5Field('Text', config_name='default')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -101,7 +102,7 @@ class Blog(models.Model):
     title =  models.CharField(max_length=220, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     img = models.ImageField(upload_to="blog/")
-    description = models.TextField(null=True, blank=True)
+    description = CKEditor5Field('Text', config_name='default')
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -126,7 +127,7 @@ class Sermon(models.Model):
     name = models.CharField(max_length=120)
     category  = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sermons')
     img = models.ImageField(upload_to="blog/")
-    description = models.TextField(null=True, blank=True)
+    description = CKEditor5Field('Text', config_name='default')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     is_active = models.BooleanField(default=True)
@@ -151,7 +152,7 @@ class CellGroup(models.Model):
     title =  models.CharField(max_length=220, unique=True)
     whatsapp_link  = models.URLField()
     img = models.ImageField(upload_to="blog/")
-    description = models.TextField(null=True, blank=True, max_length=300)
+    description = CKEditor5Field('Text', config_name='default')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -199,7 +200,7 @@ class Contact(models.Model):
     email =  models.EmailField(max_length=255)
     phone_number =  models.CharField(max_length=13)
     description = models.TextField(null=True, blank=True)
-    is_addressed = models.BooleanField(default=True)
+    is_addressed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -212,7 +213,7 @@ class Contact(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=120)
-    description = models.TextField(blank=True, null=True)
+    description = CKEditor5Field('Text', config_name='default')
     date = models.DateTimeField()
     venue = models.CharField(max_length=120)
     is_special = models.BooleanField(default=False)

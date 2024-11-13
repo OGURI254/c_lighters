@@ -17,6 +17,7 @@ urlpatterns = [
     path('galleries/', views.gallery, name='gallery'),
     path('contacts/', views.contact, name='contact'),
     path('validate/', views.scanner, name='validate'),
+    path('validate/<str:tkt_no>', views.validate_tkt, name='validate_tkt'),
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
     path('events/<slug:slug>/', views.event_details, name='event_details')

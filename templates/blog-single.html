@@ -19,7 +19,7 @@
                         <div class="post-entry">
                             <h2 class="wow fadeInUp">{{ blog.title }}</h2>
 
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">{{ blog.description|linebreaks|default:'No Description' }}</p>
+                            <p class="wow fadeInUp" data-wow-delay="0.2s">{{ blog.description|safe|default:'No Description' }}</p>
                             
                         </div>
                         <!-- Post Entry End -->

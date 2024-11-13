@@ -16,13 +16,6 @@
     border: 1.5px solid #b2b2b2 !important;
     border-radius: 8px;
 }
-#my-qr-reader img[alt="Info icon"] {
-    display: none;
-}
-#my-qr-reader img[alt="Camera based scan"] {
-    width: 100px !important;
-    height: 100px !important;
-}
 button {
     padding: 10px 20px;
     border: 1px solid #b2b2b2;
@@ -32,58 +25,114 @@ button {
     font-size: 15px;
     cursor: pointer;
     margin-top: 15px;
-    margin-bottom: 10px;
     background-color: #008000ad;
     transition: 0.3s background-color;
 }
 button:hover {
     background-color: #008000;
 }
-#html5-qrcode-anchor-scan-type-change {
-    text-decoration: none !important;
-    color: #1d9bf0;
+#decoded-result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    display: none;
 }
-video {
-    width: 100% !important;
-    border: 1px solid #b2b2b2 !important;
-    border-radius: 0.25em;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
 }
 </style>
-<div class="row justify-content-center">
-    <div class="m-4" style="width: 500px;">
-        <div class="section">
-            <div id="my-qr-reader">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="m-4">
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div id="my-qr-reader"></div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div id="decoded-result">
+                            <h4>Ticket Information:</h4>
+                            <table id="decoded-table"></table>
+                            <a id="validate-link" href="#" class="btn-default mt-3" style="display: none;">
+                                Validate Ticket
+                            </a>
+                            <p id="validation-message"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    <script
-        src="https://unpkg.com/html5-qrcode">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+    function domReady(fn) {
+        if (
+            document.readyState === "complete" ||
+            document.readyState === "interactive"
+        ) {
+            setTimeout(fn, 1000);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+
+    domReady(function () {
+        function onScanSuccess(decodeText, decodeResult) {
+            try {
+                const decodedData = JSON.parse(decodeText);
+
+                // Clear the table content and add rows dynamically
+                const table = document.getElementById("decoded-table");
+                table.innerHTML = "";  // Clear previous data if any
+
+                for (const [key, value] of Object.entries(decodedData)) {
+                    const row = document.createElement("tr");
+                    const cellKey = document.createElement("th");
+                    const cellValue = document.createElement("td");
+
+                    cellKey.textContent = key.replace("_", " ").toUpperCase();
+                    cellValue.textContent = value;
+
+                    row.appendChild(cellKey);
+                    row.appendChild(cellValue);
+                    table.appendChild(row);
+                }
+
+                // Display the decoded information section
+                document.getElementById("decoded-result").style.display = "block";
+
+                // Show the Validate link and set its URL with tkt_no
+                const validateLink = document.getElementById("validate-link");
+                validateLink.href = "{% url 'validate_tkt' '0' %}".replace('0', decodedData.tkt_no);
+                validateLink.style.display = "inline-block";  // Make the link visible
+
+                // Store data for later validation (optional)
+                window.decodedData = decodedData;
+
+            } catch (error) {
+                alert("Invalid QR Code data. Please scan a valid QR code.");
+            }
+        }
+
+        let htmlscanner = new Html5QrcodeScanner(
+            "my-qr-reader",
+            { fps: 10, qrbox: 250 }
+        );
+        htmlscanner.render(onScanSuccess);
+    });
 </script>
-    <script>
-function domReady(fn) {
-    if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
-    ) {
-        setTimeout(fn, 1000);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-}
-
-domReady(function () {
-
-    // If found you qr code
-    function onScanSuccess(decodeText, decodeResult) {
-        alert(decodeText, decodeResult);
-    }
-
-    let htmlscanner = new Html5QrcodeScanner(
-        "my-qr-reader",
-        { fps: 10, qrbos: 250 }
-    );
-    htmlscanner.render(onScanSuccess);
-});
-    </script>
 {% endblock %}

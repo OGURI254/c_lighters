@@ -32,7 +32,7 @@
                         <!-- Ministry Entry Content Start -->
                         <div class="ministry-entry">
                             <h2 class="text-anime-style-2" data-cursor="-opaque">{{ ministry.title }}</h2>
-                            {{ ministry.description|linebreaks|default:'No Description Found' }}
+                            {{ ministry.description|safe|default:'No Description Found' }}
                         </div>
                         <!-- Ministry Entry Content End -->
 

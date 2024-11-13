@@ -1,15 +1,16 @@
-import base64
-from datetime import datetime
-from io import BytesIO
 import json
-from city_lighters.settings import DEFAULT_FROM_EMAIL
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.contrib import messages
-from django.shortcuts import redirect, render, get_object_or_404
-from django.core.paginator import Paginator
+import os
 import qrcode
+from datetime import datetime
+from django.conf import settings
 from app.form import EventRegForm
+from django.contrib import messages
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from city_lighters.settings import DEFAULT_FROM_EMAIL
+from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import EventRegistration, Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
 def home(request):
@@ -144,19 +145,24 @@ def gallery(request):
 
 # Contact Us Page
 def contact(request):
-    if request.method == 'POST':
-        pass
+    try:
+        if request.method == 'POST':
+            first_name = request.POST.get('fname')
+            last_name = request.POST.get('lname')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            msg = request.POST.get('msg')
+            contact = Contact.objects.create(first_name=first_name, last_name=last_name, email=email, phone_number=phone, description=msg)
+            contact.save()
+            messages.success(request, 'Submited Successfully!')
+            return redirect('home')
+    except Exception as e:
+        messages.success(request, e)
+        return redirect('contact')
     context = {
         'title': 'Contact Us',
     }
     return render(request, 'contact.html', context)
-
-# @require_staff
-def scanner(request):
-    context = {
-        'title': 'QR Code Scanner/Reader',
-    }
-    return render(request, 'scanner.html', context)
 
 def terms(request):
     page = CommonPage.objects.filter(title__icontains="Terms").first()
@@ -217,16 +223,38 @@ def send_ticket(id):
     qr.add_data(json_data)
     qr.make(fit=True)
     img = qr.make_image(fill="black", back_color="white")
-    buffered = BytesIO()
-    img.save(buffered, format="PNG")
-    img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    qr_filename = f"{reg.get_id()}.png"
+    qr_path = os.path.join(settings.MEDIA_ROOT, 'qrcodes', qr_filename)
+    os.makedirs(os.path.dirname(qr_path), exist_ok=True)
+    img.save(qr_path, "PNG")
     context = {
         'title': reg.event.title,
         'reg': reg,
-        'qr_code': img_base64,
+        'qr_path': '/media/'+os.path.join('qrcodes', qr_filename)
     }
     html_body = render_to_string('ticket.html', context)
     msg = EmailMultiAlternatives(subject="Your Ticket Booking", from_email=DEFAULT_FROM_EMAIL, to=[reg.email, "o.jeff3.a@gmail.com"], body=html_body)
     msg.attach_alternative(html_body, "text/html")
     msg.send()
-    
+
+@staff_member_required
+def scanner(request):
+    context = {
+        'title': 'QR Code Scanner/Reader',
+    }
+    return render(request, 'scanner.html', context)
+
+@staff_member_required
+def validate_tkt(request, tkt_no):
+    ticket_id = int(tkt_no)
+    try:
+        reg = EventRegistration.objects.get(id=ticket_id)
+        if reg.is_validated:
+            messages.info(request, "Ticket already validated!")
+        else:
+            reg.is_validated = True
+            reg.save()
+            messages.success(request, "Ticket Validated Successfully!")
+    except EventRegistration.DoesNotExist:
+        messages.warning(request, "Ticket Not Found!")
+    return redirect('validate')

@@ -561,7 +561,7 @@
                                                                             style="padding-right: 0px;padding-left: 0px;"
                                                                             align="center">
                                                                             <img align="center" border="0"
-                                                                                src="/static/images/favicon.png"
+                                                                                src="{{ request.scheme }}://{{ request.get_host }}/static/images/favicon.png"
                                                                                 alt="{{ ticket.title }} QRCode" title="{{ ticket.title }} QRCode"
                                                                                 style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 20%; min-width: 100px;"
                                                                                 width="100"
@@ -741,7 +741,7 @@
                                                                             style="padding-right: 0px;padding-left: 0px;"
                                                                             align="center">
                                                                             <img align="center" border="0"
-                                                                                src="data:image/png;base64,{{ qr_code }}"
+                                                                                src="{{ request.scheme }}://{{ request.get_host }}{{ qr_path }}"
                                                                                 alt="{{ event.title }} QRCode" title="{{ event.title }} QRCode"
                                                                                 style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 38%;max-width: 220.4px;"
                                                                                 width="220.4"

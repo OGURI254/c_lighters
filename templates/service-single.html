@@ -35,7 +35,7 @@
                         <!-- Service Entry Content Start -->
                         <div class="service-entry">
                             <h2 class="text-anime-style-2" data-cursor="-opaque">{{ service.title }}</h2>
-                            {{ service.description|linebreaks|default:'No Description' }}
+                            {{ service.description|safe|default:'No Description' }}
                         </div>
                         <!-- Service Entry Content End -->
 
