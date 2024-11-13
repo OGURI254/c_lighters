@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import Truncator
+from django.utils.html import strip_tags
 from django_ckeditor_5.fields import CKEditor5Field
 from city_lighters.utils import slugify_and_append_uuid
 
@@ -227,6 +229,10 @@ class Event(models.Model):
     
     def get_absolute_url(self):
         return reverse('event_details', kwargs={'slug':self.slug})
+    
+    def get_overview(self):
+        plain_text = strip_tags(self.description)
+        return Truncator(plain_text).chars(60)
     
     def save(self, *args, **kwargs):
         if not self.slug:

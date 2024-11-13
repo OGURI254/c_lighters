@@ -187,7 +187,7 @@ def event_details(request, slug):
         try:
             if form.is_valid():
                 reg = form.save()
-                send_ticket(reg.id)
+                send_ticket(reg.id, request)
                 messages.success(request, f"You've successfully registered for {event.title}!")
                 return redirect('home')
         except Exception as e:
@@ -203,7 +203,7 @@ def event_details(request, slug):
     }
     return render(request, 'event.html', context)
 
-def send_ticket(id):
+def send_ticket(id, request):
     reg = get_object_or_404(EventRegistration, event__is_active=True, event__date__gte=timezone.now(), id=id, event__is_special=True)
     data = {
         "tkt_no": reg.get_id(),
@@ -230,7 +230,8 @@ def send_ticket(id):
     context = {
         'title': reg.event.title,
         'reg': reg,
-        'qr_path': '/media/'+os.path.join('qrcodes', qr_filename)
+        'qr_path': '/media/'+os.path.join('qrcodes', qr_filename),
+        'request': request
     }
     html_body = render_to_string('ticket.html', context)
     msg = EmailMultiAlternatives(subject="Your Ticket Booking", from_email=DEFAULT_FROM_EMAIL, to=[reg.email, "o.jeff3.a@gmail.com"], body=html_body)

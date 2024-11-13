@@ -144,7 +144,7 @@
                                 <div class="highlighted-worship-body">
                                     <div class="highlighted-worship-content">
                                         <h3>{{ special_event.title }}</h3>
-                                        <p>{{ special_event.description|truncatechars:60|default:'No description' }}</p>
+                                        <p>{{ special_event.description|safe|truncatechars:60|default:'No description' }}</p>
                                     </div>
                                     <div class="highlighted-worship-btn">
                                         <a href="{{ special_event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
@@ -163,7 +163,7 @@
                                 <div class="highlighted-worship-body">
                                     <div class="highlighted-worship-content">
                                         <h3>{{ events.0.title }}</h3>
-                                        <p>{{ events.0.description|truncatechars:60|default:'No description' }}</p>
+                                        <p>{{ events.0.get_overview|default:'No description' }}</p>
                                     </div>
                                     <div class="highlighted-worship-btn">
                                         <a href="{{ events.0.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
@@ -186,7 +186,7 @@
                                     <div class="worship-body">
                                         <div class="worship-content">
                                             <h3>{{ event.title }}</h3>
-                                            <p>{{ event.description|truncatechars:70|default:'No description' }}</p>
+                                            <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
                                         </div>
                                         <div class="worship-btn">
                                             <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
