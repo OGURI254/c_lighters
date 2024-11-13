@@ -14,17 +14,13 @@
 </head>
 
 <body>
-    <!-- Preloader Start -->
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loading-container">
             <div class="loading"></div>
             <div id="loading-icon"><img src="/static/images/loader.svg" alt=""></div>
         </div>
-    </div>
-    <!-- Preloader End -->
-    <!-- Header Start -->
+    </div> -->
     {% include 'partials/top-nav.html' %}
-    <!-- Header End -->
     {% include 'partials/message.html' %}
     {% if title == "Homepage" %}
         {% include 'partials/hero-section.html' %}
@@ -33,9 +29,7 @@
     {% endif %}
     {% block content %}
     {% endblock %}
-    <!-- Footer Start -->
     {% include 'partials/footer.html' %}
-    <!-- Footer End -->
     {% include 'partials/js.html' %}
 </body>
 </html>

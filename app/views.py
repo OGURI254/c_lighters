@@ -1,15 +1,22 @@
+import base64
 from datetime import datetime
+from io import BytesIO
+import json
+from city_lighters.settings import DEFAULT_FROM_EMAIL
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
+import qrcode
 from app.form import EventRegForm
-from .models import Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
+from .models import EventRegistration, Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
 def home(request):
     events = Event.objects.filter(is_active=True, date__gte=datetime.now())
     context = {
         'title': 'Homepage',
-        'events': events.filter(is_special=False)[:3],
+        'events': events[:3],
         'special_event': events.filter(is_special=True).first(),
         'services': Service.objects.filter(is_active=True)[:4],
         'ministries': Ministry.objects.filter(is_active=True)[:3],
@@ -173,7 +180,8 @@ def event_details(request, slug):
         form = EventRegForm(request.POST, event=event)
         try:
             if form.is_valid():
-                form.save()
+                reg = form.save()
+                send_ticket(reg.id)
                 messages.success(request, f"You've successfully registered for {event.title}!")
                 return redirect('home')
         except Exception as e:
@@ -188,3 +196,37 @@ def event_details(request, slug):
         'form': form
     }
     return render(request, 'event.html', context)
+
+def send_ticket(id):
+    reg = get_object_or_404(EventRegistration, event__is_active=True, event__date__gte=datetime.now(), id=id, event__is_special=True)
+    data = {
+        "tkt_no": reg.get_id(),
+        "name": reg.name,
+        "phone_number": reg.phone_number,
+        "email": reg.email,
+        "event": reg.event.title,
+        "is_validated": reg.is_validated
+    }
+    json_data = json.dumps(data)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(json_data)
+    qr.make(fit=True)
+    img = qr.make_image(fill="black", back_color="white")
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    context = {
+        'title': reg.event.title,
+        'reg': reg,
+        'qr_code': img_base64,
+    }
+    html_body = render_to_string('ticket.html', context)
+    msg = EmailMultiAlternatives(subject="Your Ticket Booking", from_email=DEFAULT_FROM_EMAIL, to=[reg.email, "o.jeff3.a@gmail.com"], body=html_body)
+    msg.attach_alternative(html_body, "text/html")
+    msg.send()
+    

@@ -250,3 +250,6 @@ class EventRegistration(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.event.title}"
+    
+    def get_id(self):
+        return str(self.id).zfill(7)
