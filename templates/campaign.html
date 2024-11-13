@@ -24,7 +24,7 @@
                             <!-- Campaign Title Start -->
                             <div class="campaign-content">
                                 <h2>{{ cellgroup.title }}</h2>
-                                <p>{{ cellgroup.description|default:'No Description Found' }}</p>
+                                <p>{{ cellgroup.description|safe|default:'No Description Found' }}</p>
                             </div>
                             <!-- Campaign Title End -->
 
