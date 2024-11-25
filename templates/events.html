@@ -2,31 +2,51 @@
 {% block content %}
     <div class="join-worship">
         <div class="container">
-            {% if events %}
-                <div class="worship-box row">
-                    {% for event in events %}
-                        <div class="worship-item wow fadeInUp col-sm-12 col-md-4 p-2 m-0" data-wow-delay="0.25s">
-                            <div class="worship-image p-0 m-0">
-                                <figure>
-                                    <a href="{{ event.get_absolute_url }}" class="image-anime" data-cursor-text="View Event">
-                                        <img src="{{ event.img.url }}" alt="{{ event.title }}">
-                                    </a>
-                                </figure>
-                            </div>
-                            <div class="worship-body m-0 p-2">
-                                <div class="worship-content">
+            <h3 class="my-2">Past Events</h3>
+            {% if p_events %}
+                <div class="row">
+                    {% for event in p_events %}
+                        <div class="col-sm-12 col-md-4 col-lg-3" data-wow-delay="0.25s">
+                            <div class="card" style="width: 100%;">
+                                <a href="{{ event.get_absolute_url }}" class="card-img" data-cursor-text="View event">
+                                    <img src="{{ event.img.url }}" alt="{{ event.title }}">
+                                </a>
+                                <div class="card-body">
                                     <h3>{{ event.title }}</h3>
                                     <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
-                                </div>
-                                <div class="worship-btn">
-                                    <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
+                                    <div class="worship-btn">
+                                        <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <p class="text-center">No Event Found</p>
+                <p>No Event Found</p>
+            {% endif %}
+            <h3 class="my-2">Upcoming Events</h3>
+            {% if f_events %}
+                <div class="row">
+                    {% for event in f_events %}
+                        <div class="col-sm-12 col-md-4 col-lg-3" data-wow-delay="0.25s">
+                            <div class="card" style="width: 100%;">
+                                <a href="{{ event.get_absolute_url }}" class="card-img" data-cursor-text="View event">
+                                    <img src="{{ event.img.url }}" alt="{{ event.title }}">
+                                </a>
+                                <div class="card-body">
+                                    <h3>{{ event.title }}</h3>
+                                    <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
+                                    <div class="worship-btn">
+                                        <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No Event Found</p>
             {% endif %}
         </div>
     </div>

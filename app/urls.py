@@ -21,6 +21,6 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
     path('events/', views.event, name='events'),
-    path('ways-to-give/', views.ways_to_give, name='ways_to_give'),
+    path('donate/', views.donate, name='donate'),
     path('events/<slug:slug>/', views.event_details, name='event_details')
 ]

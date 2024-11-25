@@ -82,10 +82,10 @@ class PastorAdmin(admin.ModelAdmin):
 
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
-    list_display = ['img', 'is_active', 'created_at', 'updated_at']
-    list_filter = ['is_active', 'created_at', 'updated_at']
+    list_display = ['img', 'created_at', 'updated_at']
+    list_filter = ['created_at', 'updated_at']
     date_hierarchy = 'created_at'
-    ordering = ['is_active', 'created_at']
+    ordering = ['updated_at', 'created_at']
     list_per_page = 20
 
 @admin.register(Contact)

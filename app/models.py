@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import Truncator
-from django.utils.html import strip_tags
 from django_ckeditor_5.fields import CKEditor5Field
 from city_lighters.utils import slugify_and_append_uuid
 
@@ -170,10 +169,6 @@ class Pastor(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='user')
     position = models.CharField(max_length=120)
     img = models.ImageField(upload_to="pastor/")
-    fb_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
-    ig_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
-    linkedin_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
-    x_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -185,7 +180,6 @@ class Pastor(models.Model):
 
 class Gallery(models.Model):
     img = models.ImageField(upload_to="gallery/")
-    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -193,8 +187,19 @@ class Gallery(models.Model):
         return self.img.name
     
     class Meta:
-        ordering = ('is_active', 'created_at')
+        ordering = ('updated_at', 'created_at')
         verbose_name_plural = 'Galleries'
+
+class Reel(models.Model):
+    video = models.FileField(upload_to="reels/")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.video.name
+    
+    class Meta:
+        ordering = ('updated_at', 'created_at')
 
 class Contact(models.Model):
     first_name =  models.CharField(max_length=60)
@@ -215,9 +220,12 @@ class Contact(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=120)
-    description = CKEditor5Field('Text', config_name='default')
     date = models.DateTimeField()
     venue = models.CharField(max_length=120)
+    theme = models.CharField(max_length=120)
+    overview = models.TextField(max_length=300)
+    map = models.URLField(max_length=250)
+    description = CKEditor5Field('Text', config_name='default')
     is_special = models.BooleanField(default=False)
     img = models.ImageField(upload_to='events/')
     is_active = models.BooleanField(default=True)
@@ -231,8 +239,7 @@ class Event(models.Model):
         return reverse('event_details', kwargs={'slug':self.slug})
     
     def get_overview(self):
-        plain_text = strip_tags(self.description)
-        return Truncator(plain_text).chars(60)
+        return Truncator(self.overview).chars(60)
     
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -260,3 +267,127 @@ class EventRegistration(models.Model):
     
     def get_id(self):
         return str(self.id).zfill(7)
+    
+class Schedule(models.Model):
+    activity = models.CharField(max_length=120)
+    start_at = models.TimeField()
+    end_at = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.start_at}-{self.end_at} - {self.activity}"
+
+class EventSchedule(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_schedule")
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="event_schedule")
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.schedule.start_at}-{self.schedule.end_at} - {self.schedule.activity}"
+    
+class EventGallery(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_gallery")
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name="event_gallery")
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.gallery.img.name
+    
+    class Meta:
+        ordering = ('is_active', 'event', 'gallery')
+        verbose_name_plural = 'Event Galleries'
+    
+class EventReel(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_reel")
+    reel = models.ForeignKey(Reel, on_delete=models.CASCADE, related_name="event_reel")
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.reel.video.name
+    
+    class Meta:
+        ordering = ('is_active', 'event', 'reel')
+        verbose_name_plural = 'Event Reels'
+
+class Artist(models.Model):
+    first_name =  models.CharField(max_length=60)
+    last_name = models.CharField(max_length=60)
+    about = models.TextField(max_length=450)
+    image = models.ImageField(upload_to='artists/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+class SocialLink(models.Model):
+    fb_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
+    ig_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
+    linkedin_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
+    x_url = models.URLField(max_length=220, unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class UserSocialLink(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_social_link')
+    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='user_social_link')
+
+    def __str__(self):
+        return f"{self.user.first_name} - {self.user.last_name} Social Link"
+
+class ArtistSocialLink(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='artist_social_link')
+    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='artist_social_link')
+
+    def __str__(self):
+        return f"{self.artist.first_name} - {self.artist.last_name} Social Link"
+
+class Testimony(models.Model):
+    name = models.CharField(max_length=120)
+    image = models.ImageField(upload_to='testimonies/')
+    message = models.TextField(max_length=350)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name} Testimony"
+    
+class EventTestimony(models.Model):
+    testimony = models.ForeignKey(Testimony, models.CASCADE, related_name="event_testimony")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="event_testimony")
+
+    def __str__(self):
+        return f"{self.event.title} Testimony"
+
+class Partner(models.Model):
+    name = models.CharField(max_length=120)
+    logo = models.ImageField(upload_to="partners/")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+class EventPartner(models.Model):
+    patner = models.ForeignKey(Partner, models.CASCADE, related_name="event_partner")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="event_partner")
+
+    def __str__(self):
+        return f"{self.event.title} - {self.patner.name}"
+    
+class FAQ(models.Model):
+    question = models.CharField(max_length=120)
+    answer = models.TextField(max_length=350)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question
+    
+class EventFAQ(models.Model):
+    faq = models.ForeignKey(FAQ, models.CASCADE, related_name="event_faq")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="event_faq")
+
+    def __str__(self):
+        return f"{self.event.title} - {self.faq.question}"

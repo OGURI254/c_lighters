@@ -9,7 +9,8 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from city_lighters.settings import DEFAULT_FROM_EMAIL
-from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
+from django.utils.timezone import now
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import EventRegistration, Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
@@ -180,22 +181,24 @@ def privacy(request):
     }
     return render(request, 'common.html', context)
 
-def ways_to_give(request):
+def donate(request):
     context = {
-        'title': "Ways to Give",
+        'title': "Donate",
     }
-    return render(request, 'ways-to-give.html', context)
+    return render(request, 'donate.html', context)
 
 def event(request):
-    events = Event.objects.filter(is_active=True, date__gte=timezone.now())
+    p_events = Event.objects.filter(is_active=True, date__lt=timezone.now())
+    f_events = Event.objects.filter(is_active=True, date__gte=timezone.now())
     context = {
-        'title': "Events",
-        'events': events,
+        'title': "All Events",
+        'p_events': p_events,
+        'f_events': f_events,
     }
     return render(request, 'events.html', context)
 
 def event_details(request, slug):
-    event = get_object_or_404(Event, is_active=True, date__gte=timezone.now(), slug=slug)
+    event = get_object_or_404(Event, is_active=True, slug=slug)
     if request.method == 'POST':
         form = EventRegForm(request.POST, event=event)
         try:
@@ -215,7 +218,10 @@ def event_details(request, slug):
         'event': event,
         'form': form
     }
-    return render(request, 'event.html', context)
+    if event.date >= now() and event.is_special:     
+        return render(request, 'event.html', context)
+    else:
+        return render(request, 'event.html', {'title': event.title, 'event': event})
 
 def send_ticket(id, request):
     reg = get_object_or_404(EventRegistration, event__is_active=True, event__date__gte=timezone.now(), id=id, event__is_special=True)
