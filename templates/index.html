@@ -144,7 +144,7 @@
                                 <div class="highlighted-worship-body">
                                     <div class="highlighted-worship-content">
                                         <h3>{{ special_event.title }}</h3>
-                                        <p>{{ special_event.description|safe|truncatechars:60|default:'No description' }}</p>
+                                        <p>{{ special_event.get_overview|truncatechars:60|default:'No description' }}</p>
                                     </div>
                                     <div class="highlighted-worship-btn">
                                         <a href="{{ special_event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
