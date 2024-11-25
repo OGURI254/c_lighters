@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="join-worship">
+        <div class="container">
+            {% if events %}
+                <div class="worship-box row">
+                    {% for event in events %}
+                        <div class="worship-item wow fadeInUp col-sm-12 col-md-4 p-2 m-0" data-wow-delay="0.25s">
+                            <div class="worship-image p-0 m-0">
+                                <figure>
+                                    <a href="{{ event.get_absolute_url }}" class="image-anime" data-cursor-text="View Event">
+                                        <img src="{{ event.img.url }}" alt="{{ event.title }}">
+                                    </a>
+                                </figure>
+                            </div>
+                            <div class="worship-body m-0 p-2">
+                                <div class="worship-content">
+                                    <h3>{{ event.title }}</h3>
+                                    <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
+                                </div>
+                                <div class="worship-btn">
+                                    <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center">No Event Found</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

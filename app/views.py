@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from city_lighters.settings import DEFAULT_FROM_EMAIL
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import EventRegistration, Service, Ministry, Sermon, Blog, CellGroup, Contact, Pastor, Gallery, CommonPage, Event
 
@@ -179,6 +179,20 @@ def privacy(request):
         'page': page
     }
     return render(request, 'common.html', context)
+
+def ways_to_give(request):
+    context = {
+        'title': "Ways to Give",
+    }
+    return render(request, 'ways-to-give.html', context)
+
+def event(request):
+    events = Event.objects.filter(is_active=True, date__gte=timezone.now())
+    context = {
+        'title': "Events",
+        'events': events,
+    }
+    return render(request, 'events.html', context)
 
 def event_details(request, slug):
     event = get_object_or_404(Event, is_active=True, date__gte=timezone.now(), slug=slug)

@@ -20,5 +20,7 @@ urlpatterns = [
     path('validate/<str:tkt_no>', views.validate_tkt, name='validate_tkt'),
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
+    path('events/', views.event, name='events'),
+    path('ways-to-give/', views.ways_to_give, name='ways_to_give'),
     path('events/<slug:slug>/', views.event_details, name='event_details')
 ]

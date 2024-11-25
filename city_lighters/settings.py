@@ -6,7 +6,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '13.245.109.191',
     'clc.vstech.co.ke',
-    'www.clc.vstech.co.ke'
+    'www.clc.vstech.co.ke',
     '127.0.0.1',
     'localhost'
 ]
