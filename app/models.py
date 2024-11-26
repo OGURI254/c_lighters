@@ -217,6 +217,8 @@ class Contact(models.Model):
     class Meta:
         ordering = ('is_addressed', 'created_at')
 
+import requests
+
 class Event(models.Model):
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=120)
@@ -224,7 +226,7 @@ class Event(models.Model):
     venue = models.CharField(max_length=120)
     theme = models.CharField(max_length=120)
     overview = models.TextField(max_length=300)
-    map = models.URLField(max_length=250)
+    map = models.URLField(max_length=550)
     description = CKEditor5Field('Text', config_name='default')
     is_special = models.BooleanField(default=False)
     img = models.ImageField(upload_to='events/')
@@ -241,9 +243,20 @@ class Event(models.Model):
     def get_overview(self):
         return Truncator(self.overview).chars(60)
     
+    def get_map_url(self): 
+        response = requests.head(self.map, allow_redirects=True) 
+        return response.url
+    
+    def get_embed_url(google_maps_url): 
+        api_key = ""
+        embed_url = f"https://www.google.com/maps/embed/v1/place?key={api_key}&q={google_maps_url}" 
+        return embed_url
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify_and_append_uuid(self.title)
+        if 'maps.app.goo.gl' in self.map: 
+            self.map = self.get_map_url()
         super(Event, self).save(*args, **kwargs)
 
     class Meta:
@@ -277,18 +290,21 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f"{self.start_at}-{self.end_at} - {self.activity}"
+    
+    class Meta:
+        ordering = ['-start_at']
 
 class EventSchedule(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_schedule")
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="event_schedule")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="schedules")
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="schedules")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.schedule.start_at}-{self.schedule.end_at} - {self.schedule.activity}"
     
 class EventGallery(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_gallery")
-    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name="event_gallery")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="galleries")
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name="galleries")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -299,8 +315,8 @@ class EventGallery(models.Model):
         verbose_name_plural = 'Event Galleries'
     
 class EventReel(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_reel")
-    reel = models.ForeignKey(Reel, on_delete=models.CASCADE, related_name="event_reel")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reels")
+    reel = models.ForeignKey(Reel, on_delete=models.CASCADE, related_name="reels")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -330,15 +346,15 @@ class SocialLink(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class UserSocialLink(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_social_link')
-    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='user_social_link')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='social_links')
+    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='social_links')
 
     def __str__(self):
         return f"{self.user.first_name} - {self.user.last_name} Social Link"
 
 class ArtistSocialLink(models.Model):
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='artist_social_link')
-    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='artist_social_link')
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='social_links')
+    link = models.ForeignKey(SocialLink, on_delete=models.CASCADE, related_name='social_link')
 
     def __str__(self):
         return f"{self.artist.first_name} - {self.artist.last_name} Social Link"
@@ -354,8 +370,8 @@ class Testimony(models.Model):
         return f"{self.name} Testimony"
     
 class EventTestimony(models.Model):
-    testimony = models.ForeignKey(Testimony, models.CASCADE, related_name="event_testimony")
-    event = models.ForeignKey(Event, models.CASCADE, related_name="event_testimony")
+    testimony = models.ForeignKey(Testimony, models.CASCADE, related_name="testimonies")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="testimonies")
 
     def __str__(self):
         return f"{self.event.title} Testimony"
@@ -370,8 +386,8 @@ class Partner(models.Model):
         return f"{self.name}"
 
 class EventPartner(models.Model):
-    patner = models.ForeignKey(Partner, models.CASCADE, related_name="event_partner")
-    event = models.ForeignKey(Event, models.CASCADE, related_name="event_partner")
+    patner = models.ForeignKey(Partner, models.CASCADE, related_name="partners")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="partners")
 
     def __str__(self):
         return f"{self.event.title} - {self.patner.name}"
@@ -386,8 +402,8 @@ class FAQ(models.Model):
         return self.question
     
 class EventFAQ(models.Model):
-    faq = models.ForeignKey(FAQ, models.CASCADE, related_name="event_faq")
-    event = models.ForeignKey(Event, models.CASCADE, related_name="event_faq")
+    faq = models.ForeignKey(FAQ, models.CASCADE, related_name="faqs")
+    event = models.ForeignKey(Event, models.CASCADE, related_name="faqs")
 
     def __str__(self):
         return f"{self.event.title} - {self.faq.question}"

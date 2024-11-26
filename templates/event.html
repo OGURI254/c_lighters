@@ -24,10 +24,121 @@
                             {{ event.description|safe|default:'No Description Found' }}
                         </div>
                     </div>
+                    {% if event.partners.all %}
+                    <h3 class="mb-3">Our Partners</h3>
+                    <div class="our-scrolling-ticker" style="background-color: white !important;">
+                        <!-- Scrolling Ticker Start -->
+                        <div class="scrolling-ticker-box">
+                            <div class="scrolling-content">
+                                {% for partner in event.partners.all %}
+                                    <img src="{{ partner.patner.logo.url  }}" height="50" alt="{{ partner.patner.name  }}">
+                                {% endfor %}
+                            </div>
+                            <div class="scrolling-content">
+                                {% for partner in event.partners.all %}
+                                    <img src="{{ partner.patner.logo.url  }}" height="50" alt="{{ partner.patner.name  }}">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if event.galleries.all %}
+                        <div class="page-gallery">
+                            <h4 class="mb-3">Gallery</h4>
+                            <div class="container">
+                                <div class="row gallery-items page-gallery-box">
+                                    {% for image in event.galleries.all %}
+                                    <div class="col-lg-4 col-6">
+                                        <div class="photo-gallery wow fadeInUp" data-cursor-text="View">
+                                            <a href="{{ image.gallery.img.url }}">
+                                                <figure class="image-anime">
+                                                    <img src="{{ image.gallery.img.url }}" alt="{{ image.img.name }}">
+                                                </figure>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                     {% endif %}
+                        <div class="container">             
+                            <div class="row">
+                                {% if event.faqs.all %}
+                                <div class="col-lg-6">
+                                        <h3 class="mb-3">FAQs</h3>
+                                        <!-- Core Value FAQ Accordion Start -->
+                                        <div class="core-value-faqs-accordion" id="accordion">
+                                            {% for faq in event.faqs.all %}
+                                            <!-- FAQ Item Start -->
+                                            <div class="accordion-item wow fadeInUp">
+                                                <h4 class="accordion-header" id="heading{{ forloop.counter }}">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                                        {{ faq.faq.question }}
+                                                    </button>
+                                                </h4>
+                                                <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}"
+                                                    data-bs-parent="#accordion">
+                                                    <div class="accordion-body">
+                                                        {{ faq.faq.answer }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- FAQ Item End -->
+                                            {% endfor %}
+                                        </div>
+                                        <!-- Core Value FAQ Accordion End -->
+                                </div>
+                                {% endif %}
+                                {% if event.testimonies.all %}
+                                <div class="col-lg-6">
+                                    <h3 class="mb-3">Testimonies</h3>
+                                    <div class="core-value-slider">
+                                        <div class="swiper">
+                                            <div class="swiper-wrapper">
+                                                {% for testimony in event.testimonies.all %}
+                                                <!-- Core Value Image Slide Start -->
+                                                <div class="swiper-slide">
+                                                    <div class="core-value-slider-img">
+                                                        <figure class="image-anime">
+                                                            <div class="campaign-item wow fadeInUp">
+                                                                <!-- Campaign Image Start -->
+                                                                <div class="campaign-image">
+                                                                    <figure>
+                                                                        <a href="#" class="image-anime" data-cursor-text="View">
+                                                                            <img src="{{ testimony.testimony.image.url }}" alt="{{ testimony.testimony.name }}">
+                                                                        </a>
+                                                                    </figure>
+                                                                </div>
+                                                                <div class="campaign-body">
+                                                                    <div class="campaign-content">
+                                                                        <h2>{{ testimony.testimony.name }}</h2>
+                                                                        <p>{{ testimony.testimony.message }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </figure>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="core-value-btn">
+                                                <div class="core-value-button-prev"></div>
+                                                <div class="core-value-button-next"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Core Value Slider End -->
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
                 </div>
 
                 <div class="col-lg-4">
                     <div class="ministry-single-sidebar wow fadeInUp" data-wow-delay="0.25s">
+                        <iframe width="auto" class="mb-3 w-100" height="300" style="border:0" loading="lazy" allowfullscreen src="{{ event.get_embed_url }}"> </iframe>
                         <div class="ministry-single-box">
                             <div class="ministry-single-info">
                                 <div class="icon-box">
@@ -43,6 +154,25 @@
                                 </ul>
                             </div>
                         </div>
+                        {% if event.schedules.all %}
+                        <div class="ministry-single-box">
+                            <div class="ministry-single-info">
+                                <div class="icon-box">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </div>
+                                <div class="ministry-single-info-content">
+                                    <h3>schedule</h3>
+                                </div>
+                            </div>
+                            <div class="ministry-single-info-list">
+                                <ul>
+                                    {% for activity in event.schedules.all %}
+                                    <li>{{ activity.schedule.start_at|time }} to {{ activity.schedule.end_at|time }} - {{ activity.schedule.activity }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
                         <div class="ministry-single-box">
                             <div class="ministry-single-info">
                                 <div class="icon-box">

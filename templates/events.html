@@ -1,53 +1,87 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="join-worship">
-        <div class="container">
-            <h3 class="my-2">Past Events</h3>
-            {% if p_events %}
+    {% if p_events %}
+        <div class="page-sermons">
+            <div class="container">
+                <h3 class="my-2">Past Events</h3>
                 <div class="row">
-                    {% for event in p_events %}
-                        <div class="col-sm-12 col-md-4 col-lg-3" data-wow-delay="0.25s">
-                            <div class="card" style="width: 100%;">
-                                <a href="{{ event.get_absolute_url }}" class="card-img" data-cursor-text="View event">
-                                    <img src="{{ event.img.url }}" alt="{{ event.title }}">
-                                </a>
-                                <div class="card-body">
-                                    <h3>{{ event.title }}</h3>
-                                    <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
-                                    <div class="worship-btn">
-                                        <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
-                                    </div>
+                    {% for p_event in p_events %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="sermons-item wow fadeInUp">
+                            <div class="sermons-image">
+                                <figure>
+                                    <a href="{{ p_event.get_absolute_url }}" class="image-anime" data-cursor-text="View">
+                                        <img src="{{ p_event.img.url }}" alt="{{ p_event.title }}">
+                                    </a>
+                                </figure>
+                                <div class="sermons-meta">
+                                    <h3>{{ p_event.date|date:'d' }}</h3>
+                                    <p>{{ p_event.date|date:'M' }}</p>
+                                </div>
+                                <div class="sermons-audio-icon">
+                                    <a href="{{ p_event.get_absolute_url }}"><img src="/static/images/audio-play-icon.svg" alt="{{ p_event.title }}"></a>
+                                </div>
+                            </div>
+
+                            <div class="sermons-body">
+                                <div class="sermons-title">
+                                    <h2>{{ p_event.title }}</h2>
+                                </div>
+                                <div class="sermons-list">
+                                    <ul>
+                                        <li><i class="fa-solid fa-user"></i>Theme : <span>{{ p_event.theme|default:'No Theme Provided' }}</span></li>
+                                        <li><i class="fa-solid fa-tag"></i>Venue : <span>{{ p_event.venue }}</span></li>
+                                        <li><i class="fa-regular fa-calendar-days"></i>Date : <span>{{ p_event.date }}</span></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <p>No Event Found</p>
-            {% endif %}
-            <h3 class="my-2">Upcoming Events</h3>
-            {% if f_events %}
-                <div class="row">
-                    {% for event in f_events %}
-                        <div class="col-sm-12 col-md-4 col-lg-3" data-wow-delay="0.25s">
-                            <div class="card" style="width: 100%;">
-                                <a href="{{ event.get_absolute_url }}" class="card-img" data-cursor-text="View event">
-                                    <img src="{{ event.img.url }}" alt="{{ event.title }}">
-                                </a>
-                                <div class="card-body">
-                                    <h3>{{ event.title }}</h3>
-                                    <p>{{ event.get_overview|truncatechars:70|default:'No description' }}</p>
-                                    <div class="worship-btn">
-                                        <a href="{{ event.get_absolute_url }}" class="readmore-btn"><img src="/static/images/arrow-white.svg" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No Event Found</p>
-            {% endif %}
+            </div>
         </div>
-    </div>
+    {% endif %}
+    {% if f_events %}
+        <div class="page-sermons">
+            <div class="container">
+                <h3 class="my-2">Upcoming Events</h3>
+                <div class="row">
+                    {% for f_event in f_events %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="sermons-item wow fadeInUp">
+                            <div class="sermons-image">
+                                <figure>
+                                    <a href="{{ f_event.get_absolute_url }}" class="image-anime" data-cursor-text="View">
+                                        <img src="{{ f_event.img.url }}" alt="{{ f_event.title }}">
+                                    </a>
+                                </figure>
+                                <div class="sermons-meta">
+                                    <h3>{{ f_event.date|date:'d' }}</h3>
+                                    <p>{{ f_event.date|date:'M' }}</p>
+                                </div>
+                                <div class="sermons-audio-icon">
+                                    <a href="{{ f_event.get_absolute_url }}"><img src="/static/images/audio-play-icon.svg" alt="{{ f_event.title }}"></a>
+                                </div>
+                            </div>
+
+                            <div class="sermons-body">
+                                <div class="sermons-title">
+                                    <h2>{{ f_event.title }}</h2>
+                                </div>
+                                <div class="sermons-list">
+                                    <ul>
+                                        <li><i class="fa-solid fa-user"></i>Theme : <span>{{ f_event.theme|default:'No Theme Provided' }}</span></li>
+                                        <li><i class="fa-solid fa-tag"></i>Venue : <span>{{ f_event.venue }}</span></li>
+                                        <li><i class="fa-regular fa-calendar-days"></i>Date : <span>{{ f_event.date }}</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

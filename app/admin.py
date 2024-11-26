@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Category, CellGroup, Contact, Gallery, Pastor, Sermon, Service, ServiceImage, Ministry, MinistryImage, CommonPage, Event, EventRegistration
+from .models import FAQ, Blog, Category, CellGroup, Contact, Gallery, Partner, Pastor, Reel, Sermon, Service, ServiceImage, Ministry, MinistryImage, CommonPage, Event, EventRegistration, EventSchedule, Schedule, EventGallery, EventFAQ, EventPartner, EventReel, EventTestimony, Testimony
 
 # Register your models here.
 class ServiceImageInline(admin.TabularInline):
@@ -9,6 +9,46 @@ class ServiceImageInline(admin.TabularInline):
 class MinistryImageInline(admin.TabularInline):
     model = MinistryImage
     extra = 0
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ['activity', 'start_at', 'end_at']
+    search_fields = ['activity',]
+    list_filter = ['start_at', 'end_at']
+    ordering = ['start_at']
+    list_per_page = 20
+
+@admin.register(FAQ)
+class FaqAdmin(admin.ModelAdmin):
+    list_display = ['question', 'answer', 'created_at']
+    search_fields = ['question',]
+    list_filter = ['created_at', 'updated_at']
+    ordering = ['question']
+    list_per_page = 20
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'logo', 'created_at']
+    search_fields = ['name',]
+    list_filter = ['created_at', 'updated_at']
+    ordering = ['name']
+    list_per_page = 20
+
+@admin.register(Reel)
+class ReelAdmin(admin.ModelAdmin):
+    list_display = ['video', 'created_at', 'updated_at']
+    search_fields = ['video',]
+    list_filter = ['created_at', 'updated_at']
+    ordering = ['video']
+    list_per_page = 20
+
+@admin.register(Testimony)
+class TestimonyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'image', 'created_at']
+    search_fields = ['name',]
+    list_filter = ['created_at', 'updated_at']
+    ordering = ['created_at']
+    list_per_page = 20
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -83,6 +123,7 @@ class PastorAdmin(admin.ModelAdmin):
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ['img', 'created_at', 'updated_at']
+    search_fields = ['img', ]
     list_filter = ['created_at', 'updated_at']
     date_hierarchy = 'created_at'
     ordering = ['updated_at', 'created_at']
@@ -111,6 +152,36 @@ class EventRegistrationInline(admin.TabularInline):
     readonly_fields = ['name', 'phone_number', 'email', 'is_validated', 'created_at']
     extra = 0
 
+class EventScheduleInline(admin.TabularInline):
+    model = EventSchedule
+    autocomplete_fields = ['event', 'schedule']
+    extra = 0
+
+class EventGalleryInline(admin.TabularInline):
+    model = EventGallery
+    autocomplete_fields = ['event', 'gallery']
+    extra = 0
+
+class EventFAQInline(admin.TabularInline):
+    model = EventFAQ
+    autocomplete_fields = ['event', 'faq']
+    extra = 0
+
+class EventPartnerInline(admin.TabularInline):
+    model = EventPartner
+    autocomplete_fields = ['event', 'patner']
+    extra = 0
+
+class EventReelInline(admin.TabularInline):
+    model = EventReel
+    autocomplete_fields = ['event', 'reel']
+    extra = 0
+
+class EventTestimonyInline(admin.TabularInline):
+    model = EventTestimony
+    autocomplete_fields = ['event', 'testimony']
+    extra = 0
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['title', 'venue', 'date', 'img', 'is_active', 'is_special', 'updated_at']
@@ -120,7 +191,7 @@ class EventAdmin(admin.ModelAdmin):
     readonly_fields = ['slug', ]
     ordering = ['is_active', '-date']
     list_per_page = 20
-    inlines = [EventRegistrationInline]
+    inlines = [EventRegistrationInline, EventScheduleInline, EventGalleryInline, EventFAQInline, EventPartnerInline, EventReelInline, EventTestimonyInline]
 
 @admin.register(EventRegistration)
 class EventRegAdmin(admin.ModelAdmin):
