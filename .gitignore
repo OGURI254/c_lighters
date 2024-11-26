@@ -5,5 +5,4 @@ env/
 **\*$py.class
 .vscode/
 .vscode/*
-db.sqlite3
 .env
