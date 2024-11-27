@@ -183,7 +183,7 @@ def privacy(request):
 
 def donate(request):
     context = {
-        'title': "Donate",
+        'title': "Ways to Give",
     }
     return render(request, 'donate.html', context)
 
