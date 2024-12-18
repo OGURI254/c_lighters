@@ -135,7 +135,7 @@ def pastor(request):
 
 # Gallery Page
 def gallery(request):
-    paginator = Paginator(Gallery.objects.filter(is_active=True), 6)
+    paginator = Paginator(Gallery.objects.all(), 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {

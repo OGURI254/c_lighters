@@ -248,7 +248,7 @@ class Event(models.Model):
         return response.url
     
     def get_embed_url(google_maps_url): 
-        api_key = ""
+        api_key = "AIzaSyCtSAR45TFgZjOs4nBFFZnII-6mMHLfSYI"
         embed_url = f"https://www.google.com/maps/embed/v1/place?key={api_key}&q={google_maps_url}" 
         return embed_url
 
